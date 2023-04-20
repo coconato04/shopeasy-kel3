@@ -135,6 +135,9 @@ class signinpage extends StatelessWidget {
                       } else {
                         print('Login Success');
                         print(result);
+                        Navigator.of(context).push(
+                          MaterialPageRoute(builder: (context) => Homepage()),
+                        );
                       }
                     }
                   },
