@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:shopeasy/screens/opening/signinpage.dart';
+import 'package:shopeasy/services/auth.dart';
 
 class signuppage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+    final TextEditingController usernameController = TextEditingController();
+    final TextEditingController emailController = TextEditingController();
+    final TextEditingController passwordController = TextEditingController();
+    final TextEditingController verifyPasswordController =
+        TextEditingController();
+    final _auth = AuthService();
 
     return Scaffold(
       appBar: AppBar(
@@ -35,6 +42,7 @@ class signuppage extends StatelessWidget {
                 ),
                 SizedBox(height: 50),
                 TextFormField(
+                  //controller: usernameController,
                   keyboardType: TextInputType.text,
                   textInputAction: TextInputAction.next,
                   cursorColor: Colors.lightBlue.shade800,
@@ -52,6 +60,7 @@ class signuppage extends StatelessWidget {
                 ),
                 SizedBox(height: 20),
                 TextFormField(
+                  controller: emailController,
                   keyboardType: TextInputType.emailAddress,
                   textInputAction: TextInputAction.next,
                   cursorColor: Colors.lightBlue.shade800,
@@ -69,6 +78,7 @@ class signuppage extends StatelessWidget {
                 ),
                 SizedBox(height: 20),
                 TextFormField(
+                  controller: passwordController,
                   textInputAction: TextInputAction.next,
                   obscureText: true,
                   cursorColor: Colors.lightBlue.shade800,
@@ -85,6 +95,7 @@ class signuppage extends StatelessWidget {
                 ),
                 SizedBox(height: 20),
                 TextFormField(
+                  controller: verifyPasswordController,
                   textInputAction: TextInputAction.done,
                   obscureText: true,
                   cursorColor: Colors.lightBlue.shade800,
@@ -101,10 +112,35 @@ class signuppage extends StatelessWidget {
                 ),
                 SizedBox(height: 20),
                 ElevatedButton(
-                  onPressed: () {
+                  onPressed: () async {
                     if (_formKey.currentState!.validate()) {
                       _formKey.currentState!.save();
                       // Tambahkan logika untuk aksi tombol "SIGN UP"
+                      if (passwordController.text ==
+                          verifyPasswordController.text) {
+                        print('Password matches');
+                        dynamic result =
+                            await _auth.registerWithEmailAndPassword(
+                                emailController.text, passwordController.text);
+                        if (result == null) {
+                          print('Registration Error');
+                          print(
+                              "${emailController.text} ${passwordController.text}"); //TODO: for debugging purpose only. remove this
+                        } else {
+                          print('Registration Success');
+                          print(
+                              result); //TODO: for debugging purpose only. remove this
+                          Navigator.of(context).push(
+                            //route to sign in
+                            MaterialPageRoute(
+                                builder: (context) => signinpage()),
+                          );
+                        }
+                      } else {
+                        print(
+                            'Password does not match: ${passwordController.text} ${verifyPasswordController.text}');
+                        //TODO: add dialog box to notify user that password does not match
+                      }
                     }
                   },
                   style: ElevatedButton.styleFrom(

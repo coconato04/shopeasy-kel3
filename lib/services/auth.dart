@@ -5,13 +5,24 @@ class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final GoogleSignIn _googleSignIn = GoogleSignIn();
 
-  //register with email and password
+  //register with email and password using email verification
   Future registerWithEmailAndPassword(String email, String password) async {
     try {
       UserCredential result = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: password);
       User? user = result.user;
+      await user!.sendEmailVerification();
       return user;
+    } catch (e) {
+      print(e.toString());
+      return null;
+    }
+  }
+
+  //reset password
+  Future resetPassword(String email) async {
+    try {
+      return await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
     } catch (e) {
       print(e.toString());
       return null;
@@ -24,10 +35,26 @@ class AuthService {
       UserCredential result = await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
       User? user = result.user;
-      return user;
+      if (user!.emailVerified) {
+        return user;
+      } else {
+        print('Email not verified');
+        return null;
+      }
     } catch (e) {
       print(e.toString());
       return null;
+    }
+  }
+
+  //check if user is email verified
+  Future<bool> isEmailVerified() async {
+    User? user = FirebaseAuth.instance.currentUser;
+    await user!.reload();
+    if (user.emailVerified) {
+      return true;
+    } else {
+      return false;
     }
   }
 
