@@ -9,6 +9,11 @@ class signinpage extends StatelessWidget {
   final AuthService _auth = AuthService();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  //When using emulator, and typing using physical (non-emulator) keyboard, the following error occurs:
+  //Inactive InputConnection errors polute the log when inputting email and password using keyboard.
+  //To fix the above, use the emulator keyboard instead.
+  //Seems to be a longstanding TextEditingController issue:
+  //https://github.com/flutter/flutter/issues/9471 opened since 2017 and still not closed/fixed.
 
   @override
   Widget build(BuildContext context) {
@@ -117,9 +122,6 @@ class signinpage extends StatelessWidget {
                 SizedBox(height: 20), //
                 ElevatedButton(
                   onPressed: () async {
-                    //Navigator.of(context).push(
-                    //  MaterialPageRoute(builder: (context) => rootappbar()),
-                    //);
                     // Tambahkan logika untuk aksi tombol "LOGIN"
                     if (_formKey.currentState!.validate()) {
                       // Validasi form
@@ -134,7 +136,8 @@ class signinpage extends StatelessWidget {
                             "${emailController.text} ${passwordController.text}"); //TODO: for debugging purpose only. remove this
                       } else {
                         print('Login Success');
-                        print(result);
+                        print(
+                            result); //TODO: for debugging purpose only. remove this
                         Navigator.of(context).push(
                           MaterialPageRoute(builder: (context) => Homepage()),
                         );
