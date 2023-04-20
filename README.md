@@ -1,16 +1,13 @@
 # shopeasy
 
-A new Flutter project.
+A "Marketplace" themed Flutter project by Kelompok 3.
 
-## Getting Started
+## Backend Testing Branch
 
-This project is a starting point for a Flutter application.
+"Don't break the main branch" - Sun Tzu
 
-A few resources to get you started if this is your first Flutter project:
+## I tried
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- Node.js (commit coup de'tat)
+- get_server (lack of documentation)
+- firebase/firestore (current iteration)
