@@ -3,8 +3,13 @@ import 'package:shopeasy/screens/component/rootappbar.dart';
 import 'package:shopeasy/screens/homescreen/homepage.dart';
 import 'package:shopeasy/screens/isiapp/search.dart';
 import 'package:shopeasy/screens/opening/signuppage.dart';
+import 'package:shopeasy/services/auth.dart';
 
 class signinpage extends StatelessWidget {
+  final AuthService _auth = AuthService();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -38,6 +43,7 @@ class signinpage extends StatelessWidget {
                 ),
                 SizedBox(height: 50), // Jarak antara teks "LOGIN" dan email
                 TextFormField(
+                  controller: emailController,
                   keyboardType: TextInputType.emailAddress,
                   textInputAction: TextInputAction.next,
                   cursorColor: Colors.lightBlue.shade800,
@@ -109,16 +115,24 @@ class signinpage extends StatelessWidget {
                 ),
                 SizedBox(height: 20), //
                 ElevatedButton(
-                  onPressed: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => rootappbar()),
-                    );
+                  onPressed: () async {
+                    //Navigator.of(context).push(
+                    //  MaterialPageRoute(builder: (context) => rootappbar()),
+                    //);
                     // Tambahkan logika untuk aksi tombol "LOGIN"
                     if (_formKey.currentState!.validate()) {
                       // Validasi form
                       _formKey.currentState!.save();
                       // Simpan nilai form
-                      // Tambahkan logika untuk proses login
+                      //login
+                      dynamic result = await _auth.signInWithEmailAndPassword(
+                          emailController.text, passwordController.text);
+                      if (result == null) {
+                        print('Error Logging In');
+                      } else {
+                        print('Login Success');
+                        print(result);
+                      }
                     }
                   },
                   child: Text(
@@ -145,14 +159,15 @@ class signinpage extends StatelessWidget {
                     height:
                         10), // Jarak antara teks "OR" dan tombol "SIGN IN WITH GOOGLE"
                 ElevatedButton(
-                  onPressed: () {
-                    // Tambahkan logika untuk aksi tombol "SIGN IN WITH GOOGLE"
+                  onPressed: () async {
+                    // logic
+                    await _auth.signInWithGoogle();
                   },
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Image.asset(
-                        'assets/icon/google.png', // Ganti dengan path gambar logo Google Anda
+                        'assets/icon/google.png',
                         width: 20,
                         height: 20,
                       ),

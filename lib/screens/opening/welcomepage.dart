@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:shopeasy/screens/opening/logsig.dart';
+import 'logsig.dart';
 
 class WelcomePage extends StatelessWidget {
   final VoidCallback hideCallback;
