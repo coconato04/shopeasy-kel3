@@ -11,6 +11,7 @@ class AuthService {
       UserCredential result = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: password);
       User? user = result.user;
+      //send email verification
       await user!.sendEmailVerification();
       return user;
     } catch (e) {
@@ -35,6 +36,7 @@ class AuthService {
       UserCredential result = await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
       User? user = result.user;
+      //email verification check
       if (user!.emailVerified) {
         return user;
       } else {
@@ -44,17 +46,6 @@ class AuthService {
     } catch (e) {
       print(e.toString());
       return null;
-    }
-  }
-
-  //check if user is email verified
-  Future<bool> isEmailVerified() async {
-    User? user = FirebaseAuth.instance.currentUser;
-    await user!.reload();
-    if (user.emailVerified) {
-      return true;
-    } else {
-      return false;
     }
   }
 
