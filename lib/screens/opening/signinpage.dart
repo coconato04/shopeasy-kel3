@@ -80,6 +80,7 @@ class signinpage extends StatelessWidget {
                 ),
                 SizedBox(height: 25), // Jarak antara email dan password
                 TextFormField(
+                  controller: passwordController,
                   textInputAction: TextInputAction.done,
                   obscureText: true,
                   cursorColor: Colors.lightBlue.shade800,
@@ -129,6 +130,8 @@ class signinpage extends StatelessWidget {
                           emailController.text, passwordController.text);
                       if (result == null) {
                         print('Error Logging In');
+                        print(
+                            "${emailController.text} ${passwordController.text}"); //TODO: for debugging purpose only. remove this
                       } else {
                         print('Login Success');
                         print(result);
