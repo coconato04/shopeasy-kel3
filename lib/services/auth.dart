@@ -5,6 +5,12 @@ class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final GoogleSignIn _googleSignIn = GoogleSignIn();
 
+  //check whether user is logged in or not and returns true or false
+  Future<bool> isLoggedIn() async {
+    User? user = await FirebaseAuth.instance.currentUser;
+    return user != null;
+  }
+
   //register with email and password using email verification
   Future registerWithEmailAndPassword(String email, String password) async {
     try {
