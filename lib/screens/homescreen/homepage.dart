@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:shopeasy/screens/opening/logsig.dart';
+import 'package:shopeasy/services/auth.dart' as auth;
 import 'package:shopeasy/screens/component/myappbar.dart';
 import 'package:shopeasy/screens/homescreen/komponen/iklan.dart';
 import 'package:shopeasy/screens/homescreen/komponen/recomended.dart';
 import 'package:shopeasy/screens/homescreen/komponen/tamp.dart';
 
 //TODO: appbar di bawahnya kyknya hilang
+//TODO: signoutnya di notif sbagai plaeceholder. pindahin codenya kalo udh ada tombol signout
 
 class homepage extends StatelessWidget {
   double getProportionateScreenWidth(double inputWidth, BuildContext context) {
@@ -22,8 +25,15 @@ class homepage extends StatelessWidget {
         onCartPressed: () {
           // Aksi ketika tombol keranjang belanja ditekan
         },
-        onNotificationPressed: () {
+        onNotificationPressed: () async {
           // Aksi ketika tombol notifikasi ditekan
+          // TODO: Sign out user
+          await auth.AuthService().signOut();
+          print('signout attempt');
+          // Move to logsig screen
+          Navigator.of(context).pushReplacement(
+            MaterialPageRoute(builder: (context) => const logsig()),
+          );
         },
         onSearchPressed: () {
           // Aksi ketika tombol pencarian ditekan
@@ -34,15 +44,15 @@ class homepage extends StatelessWidget {
         padding: EdgeInsets.zero,
         children: [
           tamp(),
-          SizedBox(
+          const SizedBox(
             height: 15,
           ),
           iklan(),
-          SizedBox(
+          const SizedBox(
             height: 15,
           ),
           recomended(),
-          SizedBox(
+          const SizedBox(
             height: 15,
           ),
           barisan(),
@@ -80,15 +90,15 @@ class Homepage extends StatelessWidget {
         padding: EdgeInsets.zero,
         children: [
           tamp(),
-          SizedBox(
+          const SizedBox(
             height: 15,
           ),
           iklan(),
-          SizedBox(
+          const SizedBox(
             height: 15,
           ),
           recomended(),
-          SizedBox(
+          const SizedBox(
             height: 15,
           ),
           barisan(),
@@ -106,11 +116,12 @@ class barisan extends StatelessWidget {
         children: [
           Expanded(
             child: Padding(
-              padding: EdgeInsets.only(
+              padding: const EdgeInsets.only(
                   right: 10, left: 15), // Ubah padding sisi kiri di sini
               child: Container(
                 width: double.infinity,
-                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 16),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 16),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                   color: Colors
@@ -125,10 +136,10 @@ class barisan extends StatelessWidget {
                       height: 120,
                       width: 120,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
-                    Text(
+                    const Text(
                       'Nama 1',
                       style: TextStyle(
                         fontSize: 16,
@@ -136,7 +147,7 @@ class barisan extends StatelessWidget {
                         color: Colors.black, // Ubah warna teks menjadi putih
                       ),
                     ),
-                    Text(
+                    const Text(
                       'Harga 1',
                       style: TextStyle(
                         fontSize: 14,
@@ -150,10 +161,11 @@ class barisan extends StatelessWidget {
           ),
           Expanded(
             child: Padding(
-              padding: EdgeInsets.only(right: 15, left: 5),
+              padding: const EdgeInsets.only(right: 15, left: 5),
               child: Container(
                 width: double.infinity,
-                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 16),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 16),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                   color: Colors
@@ -168,10 +180,10 @@ class barisan extends StatelessWidget {
                       height: 120,
                       width: 120,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
-                    Text(
+                    const Text(
                       'Nama 2',
                       style: TextStyle(
                         fontSize: 16,
@@ -179,7 +191,7 @@ class barisan extends StatelessWidget {
                         color: Colors.black, // Ubah warna teks menjadi putih
                       ),
                     ),
-                    Text(
+                    const Text(
                       'Harga 2',
                       style: TextStyle(
                         fontSize: 14,
@@ -193,15 +205,15 @@ class barisan extends StatelessWidget {
           ),
         ],
       ),
-      SizedBox(height: 15),
+      const SizedBox(height: 15),
       Row(children: [
         Expanded(
           child: Padding(
-            padding: EdgeInsets.only(
+            padding: const EdgeInsets.only(
                 right: 10, left: 15), // Ubah padding sisi kiri di sini
             child: Container(
               width: double.infinity,
-              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 16),
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 16),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
                 color:
@@ -216,10 +228,10 @@ class barisan extends StatelessWidget {
                     height: 120,
                     width: 120,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
-                  Text(
+                  const Text(
                     'Hoodie',
                     style: TextStyle(
                       fontSize: 16,
@@ -227,7 +239,7 @@ class barisan extends StatelessWidget {
                       color: Colors.black,
                     ),
                   ),
-                  Text(
+                  const Text(
                     "2.99",
                     style: TextStyle(
                       fontSize: 14,
@@ -241,10 +253,10 @@ class barisan extends StatelessWidget {
         ),
         Expanded(
           child: Padding(
-            padding: EdgeInsets.only(right: 15, left: 5),
+            padding: const EdgeInsets.only(right: 15, left: 5),
             child: Container(
               width: double.infinity,
-              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 16),
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 16),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
                 color:
@@ -259,10 +271,10 @@ class barisan extends StatelessWidget {
                     height: 120,
                     width: 120,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
-                  Text(
+                  const Text(
                     'Nama 4',
                     style: TextStyle(
                       fontSize: 16,
@@ -270,7 +282,7 @@ class barisan extends StatelessWidget {
                       color: Colors.black,
                     ),
                   ),
-                  Text(
+                  const Text(
                     'Harga 4',
                     style: TextStyle(
                       fontSize: 14,

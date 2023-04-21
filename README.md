@@ -9,13 +9,13 @@ Backend used: Firebase
 Database: Firestore
 
 ## Changes
+- Register with email and password + email verification
 - Login with email and password
 - Login with Google
-- Register with email and password + email verification
+- Login with Facebook (keytool will not cooperate so temporarily scrapped)
+- Signout (logic works, but still placeholder UI)
 
 ## Current Errors/To-Do List
-
-- Login with Facebook
 - UI pop-ups for messages (login failed, need verification, etc) 
 - Navbar (rootbarapp) missing (possibly logsig.dart issue)
 - Store user profile
@@ -23,4 +23,5 @@ Database: Firestore
 - Store product information
 - Forget Password (need UI)
 - Resend email verification (need UI)
+- Does not attempt to sign out when signing out after relogging (TLDR: no two signout in one session).
 - Pollution of logs when inputting text through physical keyboard (low priority)

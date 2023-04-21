@@ -85,6 +85,7 @@ class AuthService {
   //sign out
   Future signOut() async {
     try {
+      _googleSignIn.signOut();
       return await FirebaseAuth.instance.signOut();
     } catch (e) {
       print(e.toString());
