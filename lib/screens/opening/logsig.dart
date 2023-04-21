@@ -1,8 +1,37 @@
 import 'package:flutter/material.dart';
 import 'package:shopeasy/screens/opening/signinpage.dart';
 import 'package:shopeasy/screens/opening/signuppage.dart';
+import 'package:shopeasy/screens/homescreen/homepage.dart';
+import 'package:shopeasy/services/auth.dart' as auth;
 
-class logsig extends StatelessWidget {
+class logsig extends StatefulWidget {
+  const logsig({Key? key}) : super(key: key);
+
+  @override
+  _LogsigState createState() => _LogsigState();
+}
+
+class _LogsigState extends State<logsig> {
+  @override
+  void initState() {
+    super.initState();
+    checkLoginStatus();
+  }
+
+  //check status login
+  Future<void> checkLoginStatus() async {
+    final authService = auth.AuthService();
+    final isLoggedIn = await authService.isLoggedIn();
+    if (isLoggedIn) {
+      print('User is already logged in: moving to homepage instead');
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (context) => homepage()),
+      );
+    } else {
+      print('User is not logged in');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,7 +80,7 @@ class logsig extends StatelessWidget {
           ),
           SizedBox(height: 10),
           Text(
-            'or', // Teks "or" ditambahkan di antara tombol "Sign In" dan "Sign Up"
+            'or',
             style: TextStyle(fontSize: 18),
           ),
           SizedBox(height: 10),

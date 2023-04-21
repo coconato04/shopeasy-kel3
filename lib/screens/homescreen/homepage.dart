@@ -4,6 +4,8 @@ import 'package:shopeasy/screens/homescreen/komponen/iklan.dart';
 import 'package:shopeasy/screens/homescreen/komponen/recomended.dart';
 import 'package:shopeasy/screens/homescreen/komponen/tamp.dart';
 
+//TODO: appbar di bawahnya kyknya hilang
+
 class homepage extends StatelessWidget {
   double getProportionateScreenWidth(double inputWidth, BuildContext context) {
     // Ganti dengan logika penghitungan lebar proporsional yang sesuai
