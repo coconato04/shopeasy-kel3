@@ -15,7 +15,7 @@ class tamp extends StatelessWidget {
       child: Column(
         // Gunakan Column atau ListView sebagai children
         children: [
-          const easypay(),
+          easypay(),
           kate(),
           d(),
         ],

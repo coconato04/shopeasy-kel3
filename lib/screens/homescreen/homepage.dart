@@ -55,7 +55,7 @@ class homepage extends StatelessWidget {
           const SizedBox(
             height: 15,
           ),
-          const recomended(),
+          recomended(),
           const SizedBox(
             height: 15,
           ),
@@ -103,7 +103,7 @@ class Homepage extends StatelessWidget {
           const SizedBox(
             height: 15,
           ),
-          const recomended(),
+          recomended(),
           const SizedBox(
             height: 15,
           ),
