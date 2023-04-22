@@ -144,11 +144,12 @@ class signinpage extends StatelessWidget {
                         print(
                             result); //TODO: for debugging purpose only. remove this
                         Navigator.of(context).push(
-                          MaterialPageRoute(builder: (context) => rootappbar()),
+                          MaterialPageRoute(
+                              builder: (context) => const Homepage()),
                         );
                         Navigator.of(context).push(
                           MaterialPageRoute(
-                              builder: (context) => const Homepage()),
+                              builder: (context) => const rootappbar()),
                         );
                       }
                     }
@@ -187,11 +188,11 @@ class signinpage extends StatelessWidget {
                       print(
                           result); //TODO: for debugging purpose only. remove this
                       Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context) => rootappbar()),
-                      );
-                      Navigator.of(context).push(
                         MaterialPageRoute(
                             builder: (context) => const Homepage()),
+                      );
+                      Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context) => rootappbar()),
                       );
                     }
                   },

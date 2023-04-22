@@ -24,43 +24,48 @@ class homepage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-    return Scaffold(
-      appBar: myappbar(
-        onCartPressed: () {
-          // Aksi ketika tombol keranjang belanja ditekan
-        },
-        onNotificationPressed: () async {
-          // Aksi ketika tombol notifikasi ditekan
-          // TODO: Sign out user
-          await auth.AuthService().signOut();
-          print('signout attempt');
-          // Move to logsig screen
-          Navigator.of(context).pushReplacement(
-            MaterialPageRoute(builder: (context) => const logsig()),
-          );
-        },
-        onSearchPressed: () {
-          // Aksi ketika tombol pencarian ditekan
-        },
-      ),
-      backgroundColor: Colors.white,
-      body: ListView(
-        padding: EdgeInsets.zero,
-        children: [
-          const tamp(),
-          const SizedBox(
-            height: 15,
-          ),
-          iklan(),
-          const SizedBox(
-            height: 15,
-          ),
-          recomended(),
-          const SizedBox(
-            height: 15,
-          ),
-          const barisan(),
-        ],
+    return WillPopScope(
+      onWillPop: () async {
+        return false;
+      },
+      child: Scaffold(
+        appBar: myappbar(
+          onCartPressed: () {
+            // Aksi ketika tombol keranjang belanja ditekan
+          },
+          onNotificationPressed: () async {
+            // Aksi ketika tombol notifikasi ditekan
+            // TODO: Sign out user
+            await auth.AuthService().signOut();
+            print('signout attempt');
+            // Move to logsig screen
+            Navigator.of(context).pushReplacement(
+              MaterialPageRoute(builder: (context) => const logsig()),
+            );
+          },
+          onSearchPressed: () {
+            // Aksi ketika tombol pencarian ditekan
+          },
+        ),
+        backgroundColor: Colors.white,
+        body: ListView(
+          padding: EdgeInsets.zero,
+          children: [
+            const tamp(),
+            const SizedBox(
+              height: 15,
+            ),
+            iklan(),
+            const SizedBox(
+              height: 15,
+            ),
+            recomended(),
+            const SizedBox(
+              height: 15,
+            ),
+            const barisan(),
+          ],
+        ),
       ),
     );
   }

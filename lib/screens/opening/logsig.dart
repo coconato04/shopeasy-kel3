@@ -27,14 +27,15 @@ class LogsigState extends State<logsig> {
     final isLoggedIn = await authService.isLoggedIn();
     if (isLoggedIn) {
       print('User is already logged in: moving to homepage instead');
-      Navigator.of(context).push(
-        MaterialPageRoute(builder: (context) => const rootappbar()),
-      );
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(builder: (context) => const homepage()),
       );
+      Navigator.of(context).push(
+        MaterialPageRoute(builder: (context) => const rootappbar()),
+      );
     } else {
       print('User is not logged in');
+      //TODO: widget to show user is "not logged in"
     }
   }
 
