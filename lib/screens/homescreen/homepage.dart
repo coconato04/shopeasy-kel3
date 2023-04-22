@@ -1,3 +1,5 @@
+// ignore_for_file: camel_case_types, unused_local_variable
+
 import 'package:flutter/material.dart';
 import 'package:shopeasy/screens/opening/logsig.dart';
 import 'package:shopeasy/services/auth.dart' as auth;
@@ -10,6 +12,8 @@ import 'package:shopeasy/screens/homescreen/komponen/tamp.dart';
 //TODO: signoutnya di notif sbagai plaeceholder. pindahin codenya kalo udh ada tombol signout
 
 class homepage extends StatelessWidget {
+  const homepage({super.key});
+
   double getProportionateScreenWidth(double inputWidth, BuildContext context) {
     // Ganti dengan logika penghitungan lebar proporsional yang sesuai
     // misalnya: return inputWidth * 0.8;
@@ -43,7 +47,7 @@ class homepage extends StatelessWidget {
       body: ListView(
         padding: EdgeInsets.zero,
         children: [
-          tamp(),
+          const tamp(),
           const SizedBox(
             height: 15,
           ),
@@ -51,11 +55,11 @@ class homepage extends StatelessWidget {
           const SizedBox(
             height: 15,
           ),
-          recomended(),
+          const recomended(),
           const SizedBox(
             height: 15,
           ),
-          barisan(),
+          const barisan(),
         ],
       ),
     );
@@ -63,6 +67,8 @@ class homepage extends StatelessWidget {
 }
 
 class Homepage extends StatelessWidget {
+  const Homepage({super.key});
+
   double getProportionateScreenWidth(double inputWidth, BuildContext context) {
     // Ganti dengan logika penghitungan lebar proporsional yang sesuai
     // misalnya: return inputWidth * 0.8;
@@ -89,7 +95,7 @@ class Homepage extends StatelessWidget {
       body: ListView(
         padding: EdgeInsets.zero,
         children: [
-          tamp(),
+          const tamp(),
           const SizedBox(
             height: 15,
           ),
@@ -97,11 +103,11 @@ class Homepage extends StatelessWidget {
           const SizedBox(
             height: 15,
           ),
-          recomended(),
+          const recomended(),
           const SizedBox(
             height: 15,
           ),
-          barisan(),
+          const barisan(),
         ],
       ),
     );
@@ -109,6 +115,8 @@ class Homepage extends StatelessWidget {
 }
 
 class barisan extends StatelessWidget {
+  const barisan({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Column(children: [

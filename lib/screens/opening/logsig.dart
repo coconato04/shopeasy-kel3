@@ -1,3 +1,5 @@
+// ignore_for_file: camel_case_types
+
 import 'package:flutter/material.dart';
 import 'package:shopeasy/screens/opening/signinpage.dart';
 import 'package:shopeasy/screens/opening/signuppage.dart';
@@ -8,10 +10,10 @@ class logsig extends StatefulWidget {
   const logsig({Key? key}) : super(key: key);
 
   @override
-  _LogsigState createState() => _LogsigState();
+  LogsigState createState() => LogsigState();
 }
 
-class _LogsigState extends State<logsig> {
+class LogsigState extends State<logsig> {
   @override
   void initState() {
     super.initState();
@@ -25,7 +27,7 @@ class _LogsigState extends State<logsig> {
     if (isLoggedIn) {
       print('User is already logged in: moving to homepage instead');
       Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => homepage()),
+        MaterialPageRoute(builder: (context) => const homepage()),
       );
     } else {
       print('User is not logged in');
@@ -40,7 +42,7 @@ class _LogsigState extends State<logsig> {
         elevation: 0,
         leading: IconButton(
           color: Colors.black,
-          icon: Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back),
           onPressed: () {
             Navigator.of(context).pop();
           },
@@ -49,8 +51,8 @@ class _LogsigState extends State<logsig> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          SizedBox(height: 80),
-          Container(
+          const SizedBox(height: 80),
+          SizedBox(
             height: 320,
             width: 400,
             child: Image.asset(
@@ -58,49 +60,51 @@ class _LogsigState extends State<logsig> {
               fit: BoxFit.contain,
             ),
           ),
-          SizedBox(height: 60),
+          const SizedBox(height: 60),
           ElevatedButton(
             onPressed: () {
               Navigator.of(context).push(
                 MaterialPageRoute(builder: (context) => signinpage()),
               );
             },
-            child: Text(
-              'Sign In',
-              style: TextStyle(fontSize: 18),
-            ),
             style: ElevatedButton.styleFrom(
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(30),
               ),
-              primary: Colors.lightBlue.shade800,
-              onPrimary: Colors.white,
-              padding: EdgeInsets.symmetric(horizontal: 110, vertical: 15),
+              backgroundColor: Colors.lightBlue.shade800,
+              foregroundColor: Colors.white,
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 110, vertical: 15),
+            ),
+            child: const Text(
+              'Sign In',
+              style: TextStyle(fontSize: 18),
             ),
           ),
-          SizedBox(height: 10),
-          Text(
+          const SizedBox(height: 10),
+          const Text(
             'or',
             style: TextStyle(fontSize: 18),
           ),
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
           TextButton(
             onPressed: () {
               Navigator.of(context).push(
                 MaterialPageRoute(builder: (context) => signuppage()),
               );
             },
-            child: Text(
-              'Sign Up',
-              style: TextStyle(fontSize: 18, color: Colors.white),
-            ),
             style: TextButton.styleFrom(
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(30),
               ),
               backgroundColor: Colors.blueGrey,
-              onSurface: Colors.black,
-              padding: EdgeInsets.symmetric(horizontal: 110, vertical: 15),
+              disabledForegroundColor: Colors.black,
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 110, vertical: 15),
+            ),
+            child: const Text(
+              'Sign Up',
+              style: TextStyle(fontSize: 18, color: Colors.white),
             ),
           ),
         ],

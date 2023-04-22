@@ -4,8 +4,9 @@ import 'logsig.dart';
 class WelcomePage extends StatelessWidget {
   final VoidCallback hideCallback;
 
-  WelcomePage(
-      {required this.hideCallback}); // Menggunakan required pada constructor
+  const WelcomePage(
+      {super.key,
+      required this.hideCallback}); // Menggunakan required pada constructor
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,7 +21,7 @@ class WelcomePage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Expanded(
-                child: Container(
+                child: SizedBox(
                   height: 400, // Tinggi gambar
                   width: 400, // Lebar gambar
                   child: Image.asset(
@@ -30,31 +31,31 @@ class WelcomePage extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(height: 0), // Jarak antara gambar dan tombol
+              const SizedBox(height: 0), // Jarak antara gambar dan tombol
               ElevatedButton(
                 onPressed: () {
                   Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => logsig()),
+                    MaterialPageRoute(builder: (context) => const logsig()),
                   );
                   // Aksi yang dijalankan saat tombol ditekan
                 },
-                child: Text(
-                  'Get Started',
-                  style: TextStyle(fontSize: 18),
-                ),
                 style: ElevatedButton.styleFrom(
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(
                         30), // Mengatur border radius menjadi circular
                   ),
-                  primary: Colors.blueGrey.withOpacity(
+                  backgroundColor: Colors.blueGrey.withOpacity(
                       0.6), // Warna latar belakang tombol (biru pudar)
-                  onPrimary: Colors.white, // Warna teks pada tombol
-                  padding: EdgeInsets.symmetric(
+                  foregroundColor: Colors.white, // Warna teks pada tombol
+                  padding: const EdgeInsets.symmetric(
                       horizontal: 110, vertical: 15), // Padding tombol
                 ),
+                child: const Text(
+                  'Get Started',
+                  style: TextStyle(fontSize: 18),
+                ),
               ),
-              SizedBox(
+              const SizedBox(
                   height: 30), // Jarak antara tombol dan bagian bawah halaman
             ],
           ),

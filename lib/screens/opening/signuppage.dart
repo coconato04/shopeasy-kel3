@@ -1,23 +1,29 @@
+// ignore_for_file: camel_case_types
+
 import 'package:flutter/material.dart';
 import 'package:shopeasy/screens/opening/signinpage.dart';
 import 'package:shopeasy/services/auth.dart';
 
 class signuppage extends StatelessWidget {
+  const signuppage({super.key});
+
   @override
   Widget build(BuildContext context) {
-    final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-    final TextEditingController usernameController = TextEditingController();
+    final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+    // ignore: unused_local_variable
+    final TextEditingController usernameController =
+        TextEditingController(); //need database
     final TextEditingController emailController = TextEditingController();
     final TextEditingController passwordController = TextEditingController();
     final TextEditingController verifyPasswordController =
         TextEditingController();
-    final _auth = AuthService();
+    final auth = AuthService();
 
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
           color: Colors.black,
-          icon: Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back),
           onPressed: () {
             Navigator.of(context).pop();
           },
@@ -27,20 +33,20 @@ class signuppage extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 30),
+          padding: const EdgeInsets.symmetric(horizontal: 30),
           child: Form(
-            key: _formKey,
+            key: formKey,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
+                const Text(
                   'SIGN UP',
                   style: TextStyle(
                     fontSize: 35,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                SizedBox(height: 50),
+                const SizedBox(height: 50),
                 TextFormField(
                   //controller: usernameController,
                   keyboardType: TextInputType.text,
@@ -49,7 +55,7 @@ class signuppage extends StatelessWidget {
                   onSaved: (username) {},
                   decoration: InputDecoration(
                     hintText: "Username",
-                    prefixIcon: Padding(
+                    prefixIcon: const Padding(
                       padding: EdgeInsets.all(12),
                       child: Icon(Icons.person),
                     ),
@@ -58,7 +64,7 @@ class signuppage extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 TextFormField(
                   controller: emailController,
                   keyboardType: TextInputType.emailAddress,
@@ -67,7 +73,7 @@ class signuppage extends StatelessWidget {
                   onSaved: (email) {},
                   decoration: InputDecoration(
                     hintText: "Your email",
-                    prefixIcon: Padding(
+                    prefixIcon: const Padding(
                       padding: EdgeInsets.all(12),
                       child: Icon(Icons.email),
                     ),
@@ -76,7 +82,7 @@ class signuppage extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 TextFormField(
                   controller: passwordController,
                   textInputAction: TextInputAction.next,
@@ -84,7 +90,7 @@ class signuppage extends StatelessWidget {
                   cursorColor: Colors.lightBlue.shade800,
                   decoration: InputDecoration(
                     hintText: "Your password",
-                    prefixIcon: Padding(
+                    prefixIcon: const Padding(
                       padding: EdgeInsets.all(12),
                       child: Icon(Icons.lock),
                     ),
@@ -93,7 +99,7 @@ class signuppage extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 TextFormField(
                   controller: verifyPasswordController,
                   textInputAction: TextInputAction.done,
@@ -101,7 +107,7 @@ class signuppage extends StatelessWidget {
                   cursorColor: Colors.lightBlue.shade800,
                   decoration: InputDecoration(
                     hintText: "Verify password",
-                    prefixIcon: Padding(
+                    prefixIcon: const Padding(
                       padding: EdgeInsets.all(12),
                       child: Icon(Icons.lock_outline),
                     ),
@@ -110,17 +116,17 @@ class signuppage extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 ElevatedButton(
                   onPressed: () async {
-                    if (_formKey.currentState!.validate()) {
-                      _formKey.currentState!.save();
+                    if (formKey.currentState!.validate()) {
+                      formKey.currentState!.save();
                       // Tambahkan logika untuk aksi tombol "SIGN UP"
                       if (passwordController.text ==
                           verifyPasswordController.text) {
                         print('Password matches');
                         dynamic result =
-                            await _auth.registerWithEmailAndPassword(
+                            await auth.registerWithEmailAndPassword(
                                 emailController.text, passwordController.text);
                         if (result == null) {
                           print('Registration Error');
@@ -144,12 +150,12 @@ class signuppage extends StatelessWidget {
                     }
                   },
                   style: ElevatedButton.styleFrom(
-                    primary: Colors.lightBlue.shade800,
+                    backgroundColor: Colors.lightBlue.shade800,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30),
                     ),
                   ),
-                  child: Padding(
+                  child: const Padding(
                     padding:
                         EdgeInsets.symmetric(horizontal: 120, vertical: 12),
                     child: Text(
@@ -158,13 +164,13 @@ class signuppage extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                     height: 10), // Jarak antara tombol "LOGIN" dan teks "OR"
-                Text(
+                const Text(
                   'OR',
                   style: TextStyle(fontSize: 14),
                 ),
-                SizedBox(
+                const SizedBox(
                     height:
                         10), // Jarak antara teks "OR" dan tombol "SIGN IN WITH GOOGLE"
                 ElevatedButton(
@@ -179,27 +185,28 @@ class signuppage extends StatelessWidget {
                         width: 20,
                         height: 20,
                       ),
-                      SizedBox(width: 10),
-                      Text(
+                      const SizedBox(width: 10),
+                      const Text(
                         'SIGN IN WITH GOOGLE',
                         style: TextStyle(fontSize: 14),
                       ),
                     ],
                   ),
                   style: ElevatedButton.styleFrom(
-                    primary: Colors.white,
-                    onPrimary: Colors.black,
-                    padding: EdgeInsets.symmetric(horizontal: 80, vertical: 15),
+                    backgroundColor: Colors.white,
+                    foregroundColor: Colors.black,
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 80, vertical: 15),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30),
-                      side: BorderSide(
+                      side: const BorderSide(
                         width: 1,
                         color: Colors.black, // Warna garis pada sisi-sisinya
                       ),
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                     height:
                         15), // Jarak antara tombol "SIGN IN WITH GOOGLE" dan teks "DON'T HAVE AN ACCOUNT?"
                 ElevatedButton(
@@ -212,31 +219,32 @@ class signuppage extends StatelessWidget {
                         width: 20,
                         height: 20,
                       ),
-                      SizedBox(width: 10),
-                      Text(
+                      const SizedBox(width: 10),
+                      const Text(
                         'SIGN IN WITH FACEBOOK',
                         style: TextStyle(fontSize: 14),
                       ),
                     ],
                   ),
                   style: ElevatedButton.styleFrom(
-                    primary: Colors.white,
-                    onPrimary: Colors.black,
-                    padding: EdgeInsets.symmetric(horizontal: 70, vertical: 15),
+                    backgroundColor: Colors.white,
+                    foregroundColor: Colors.black,
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 70, vertical: 15),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30),
-                      side: BorderSide(
+                      side: const BorderSide(
                         width: 1,
                         color: Colors.black, // Warna garis pada sisi-sisinya
                       ),
                     ),
                   ),
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
+                    const Text(
                       "Already have an account?",
                       style: TextStyle(fontSize: 14),
                     ),

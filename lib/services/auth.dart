@@ -7,7 +7,7 @@ class AuthService {
 
   //check whether user is logged in or not and returns true or false
   Future<bool> isLoggedIn() async {
-    User? user = await FirebaseAuth.instance.currentUser;
+    User? user = FirebaseAuth.instance.currentUser;
     return user != null;
   }
 
@@ -87,6 +87,28 @@ class AuthService {
     try {
       _googleSignIn.signOut();
       return await FirebaseAuth.instance.signOut();
+    } catch (e) {
+      print(e.toString());
+      return null;
+    }
+  }
+
+  //resend email verification
+  Future resendEmailVerification() async {
+    try {
+      User? user = FirebaseAuth.instance.currentUser;
+      await user!.sendEmailVerification();
+      return user;
+    } catch (e) {
+      print(e.toString());
+      return null;
+    }
+  }
+
+  //forgot password
+  Future forgotPassword(String email) async {
+    try {
+      return await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
     } catch (e) {
       print(e.toString());
       return null;
