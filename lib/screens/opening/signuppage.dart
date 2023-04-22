@@ -177,6 +177,19 @@ class signuppage extends StatelessWidget {
                   onPressed: () {
                     // Tambahkan logika untuk aksi tombol "SIGN IN WITH GOOGLE"
                   },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.white,
+                    foregroundColor: Colors.black,
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 80, vertical: 15),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30),
+                      side: const BorderSide(
+                        width: 1,
+                        color: Colors.black, // Warna garis pada sisi-sisinya
+                      ),
+                    ),
+                  ),
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
@@ -192,11 +205,17 @@ class signuppage extends StatelessWidget {
                       ),
                     ],
                   ),
+                ),
+                const SizedBox(
+                    height:
+                        15), // Jarak antara tombol "SIGN IN WITH GOOGLE" dan teks "DON'T HAVE AN ACCOUNT?"
+                ElevatedButton(
+                  onPressed: () {},
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.white,
                     foregroundColor: Colors.black,
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 80, vertical: 15),
+                        horizontal: 70, vertical: 15),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30),
                       side: const BorderSide(
@@ -205,12 +224,6 @@ class signuppage extends StatelessWidget {
                       ),
                     ),
                   ),
-                ),
-                const SizedBox(
-                    height:
-                        15), // Jarak antara tombol "SIGN IN WITH GOOGLE" dan teks "DON'T HAVE AN ACCOUNT?"
-                ElevatedButton(
-                  onPressed: () {},
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
@@ -225,19 +238,6 @@ class signuppage extends StatelessWidget {
                         style: TextStyle(fontSize: 14),
                       ),
                     ],
-                  ),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.white,
-                    foregroundColor: Colors.black,
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 70, vertical: 15),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30),
-                      side: const BorderSide(
-                        width: 1,
-                        color: Colors.black, // Warna garis pada sisi-sisinya
-                      ),
-                    ),
                   ),
                 ),
                 const SizedBox(height: 20),
