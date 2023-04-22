@@ -2,6 +2,8 @@
 
 A "Marketplace" themed Flutter project by Kelompok 3. Insert flavor text here.
 
+## Currently only working on Android
+
 ## Backend Testing Branch
 
 "Don't break the main branch" - Sun Tzu  
