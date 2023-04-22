@@ -6,7 +6,9 @@ A "Marketplace" themed Flutter project by Kelompok 3. Insert flavor text here.
 
 "Don't break the main branch" - Sun Tzu  
 Backend used: Firebase  
-Database: Firestore
+Database: Firestore  
+  
+"I broke the main branch" - me  
 
 ## Changes
 - Register with email and password + email verification
