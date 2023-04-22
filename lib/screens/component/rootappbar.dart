@@ -8,7 +8,7 @@ import 'package:shopeasy/screens/isiapp/wishlist.dart';
 import 'package:shopeasy/screens/isiapp/search.dart';
 
 class rootappbar extends StatefulWidget {
-  const rootappbar({super.key});
+  const rootappbar({Key? key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
@@ -21,7 +21,7 @@ class _HomePageState extends State<rootappbar> {
     const homepage(),
     const transaction(),
     const Search(),
-    wishlist(),
+    const wishlist(),
     const myaccount(),
   ];
 

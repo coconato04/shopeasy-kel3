@@ -84,8 +84,15 @@ class Homepage extends StatelessWidget {
         onCartPressed: () {
           // Aksi ketika tombol keranjang belanja ditekan
         },
-        onNotificationPressed: () {
+        onNotificationPressed: () async {
           // Aksi ketika tombol notifikasi ditekan
+          // TODO: Sign out user
+          await auth.AuthService().signOut();
+          print('signout attempt');
+          // Move to logsig screen
+          Navigator.of(context).pushReplacement(
+            MaterialPageRoute(builder: (context) => const logsig()),
+          );
         },
         onSearchPressed: () {
           // Aksi ketika tombol pencarian ditekan

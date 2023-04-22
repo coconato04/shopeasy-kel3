@@ -1,6 +1,7 @@
 // ignore_for_file: camel_case_types
 
 import 'package:flutter/material.dart';
+import 'package:shopeasy/screens/component/rootappbar.dart';
 import 'package:shopeasy/screens/opening/signinpage.dart';
 import 'package:shopeasy/screens/opening/signuppage.dart';
 import 'package:shopeasy/screens/homescreen/homepage.dart';
@@ -26,6 +27,9 @@ class LogsigState extends State<logsig> {
     final isLoggedIn = await authService.isLoggedIn();
     if (isLoggedIn) {
       print('User is already logged in: moving to homepage instead');
+      Navigator.of(context).push(
+        MaterialPageRoute(builder: (context) => const rootappbar()),
+      );
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(builder: (context) => const homepage()),
       );
@@ -90,7 +94,7 @@ class LogsigState extends State<logsig> {
           TextButton(
             onPressed: () {
               Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => signuppage()),
+                MaterialPageRoute(builder: (context) => const signuppage()),
               );
             },
             style: TextButton.styleFrom(

@@ -144,6 +144,9 @@ class signinpage extends StatelessWidget {
                         print(
                             result); //TODO: for debugging purpose only. remove this
                         Navigator.of(context).push(
+                          MaterialPageRoute(builder: (context) => rootappbar()),
+                        );
+                        Navigator.of(context).push(
                           MaterialPageRoute(
                               builder: (context) => const Homepage()),
                         );
@@ -183,6 +186,9 @@ class signinpage extends StatelessWidget {
                       print('Login Success');
                       print(
                           result); //TODO: for debugging purpose only. remove this
+                      Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context) => rootappbar()),
+                      );
                       Navigator.of(context).push(
                         MaterialPageRoute(
                             builder: (context) => const Homepage()),
