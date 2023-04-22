@@ -4,8 +4,8 @@ A "Marketplace" themed Flutter project by Kelompok 3. Insert flavor text here.
 
 ## Backend Testing Branch
 
-"Don't break the main branch" - Sun Tzu
-Backend used: Firebase
+"Don't break the main branch" - Sun Tzu  
+Backend used: Firebase  
 Database: Firestore
 
 ## Changes
@@ -13,7 +13,9 @@ Database: Firestore
 - Login with email and password
 - Login with Google
 - Login with Facebook (keytool will not cooperate so temporarily scrapped)
-- Signout (logic works, but still placeholder UI)
+- Signout (AuthService code works, but still placeholder UI on notification button instead)
+- Resend Email Verification (AuthService code is there but not tested, needs UI)
+- Forgot password (AuthService code is there but not tested, needs UI)
 
 ## Current Errors/To-Do List
 - UI pop-ups for messages (login failed, need verification, etc) 
