@@ -77,7 +77,7 @@ class signinpage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: const [
                     Text(
-                      "EXAMPLE: axxxx@gmail,com",
+                      "EXAMPLE: axxxx@gmail.com",
                       style: TextStyle(fontSize: 11),
                     ),
                     SizedBox(width: 12),

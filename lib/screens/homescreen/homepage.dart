@@ -10,6 +10,7 @@ import 'package:shopeasy/screens/homescreen/komponen/tamp.dart';
 
 //TODO: appbar di bawahnya kyknya hilang
 //TODO: signoutnya di notif sbagai plaeceholder. pindahin codenya kalo udh ada tombol signout
+//TODO: tambah initState untuk mengecek apabila user signed in atau tidak
 
 class homepage extends StatelessWidget {
   const homepage({super.key});

@@ -17,6 +17,7 @@ Database: Firestore?
 - Login with email and password
 - Login with Google
 - (Scrapped) Login with Facebook (keytool will not cooperate)
+- Login persistence (Reopening the app will not log the user out)
 - Blocks back button at home page
 - Signout (AuthService code works, but still placeholder UI on notification button instead)
 - Resend Email Verification (AuthService code is there but not tested, needs UI)
@@ -24,6 +25,7 @@ Database: Firestore?
 
 ## Current Errors/To-Do List
 - UI pop-ups for messages (login failed, need verification, etc)
+- Add login check for home page
 - Store user profile
 - Store shop profile
 - Store product information
