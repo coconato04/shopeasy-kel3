@@ -7,19 +7,46 @@ import 'package:shopeasy/screens/component/myappbar.dart';
 import 'package:shopeasy/screens/homescreen/komponen/iklan.dart';
 import 'package:shopeasy/screens/homescreen/komponen/recomended.dart';
 import 'package:shopeasy/screens/homescreen/komponen/tamp.dart';
+import 'package:shopeasy/screens/component/rootappbar.dart';
 
 //TODO: appbar di bawahnya kyknya hilang
 //TODO: signoutnya di notif sbagai plaeceholder. pindahin codenya kalo udh ada tombol signout
 //TODO: tambah initState untuk mengecek apabila user signed in atau tidak
 
-class homepage extends StatelessWidget {
+class homepage extends StatefulWidget {
   const homepage({super.key});
 
+  @override
+  homepageState createState() => homepageState();
+}
+
+class homepageState extends State<homepage> {
   double getProportionateScreenWidth(double inputWidth, BuildContext context) {
     // Ganti dengan logika penghitungan lebar proporsional yang sesuai
     // misalnya: return inputWidth * 0.8;
     var screenWidth = MediaQuery.of(context).size.width;
     return (inputWidth / 375.0) * screenWidth;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    checkLoginStatus();
+  }
+
+  //check status login
+  Future<void> checkLoginStatus() async {
+    final authService = auth.AuthService();
+    final isLoggedIn = await authService.isLoggedIn();
+    if (isLoggedIn) {
+      print('Homepage login check: User is already logged in');
+    } else {
+      print('Homepage login check: Uaser is not logged in');
+      //TODO: widget to show user is "not logged in"
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (context) => const logsig()),
+      );
+    }
   }
 
   @override
