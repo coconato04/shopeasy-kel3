@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../component/rootappbar.dart';
+
 class Search extends StatefulWidget {
   const Search({super.key});
 
@@ -33,6 +35,9 @@ class SearchState extends State<Search> {
 
   void _onCancelPressed() {
     Navigator.pop(context); // Kembali ke halaman sebelumnya
+    Navigator.of(context).push(
+      MaterialPageRoute(builder: (context) => const rootappbar()),
+    );
   }
 
   @override
