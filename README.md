@@ -25,7 +25,6 @@ Database: Firestore?
 
 ## Current Errors/To-Do List
 - UI pop-ups for messages (login failed, need verification, etc)
-- Add login check for home page
 - Store user profile
 - Store shop profile
 - Store product information

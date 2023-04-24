@@ -1,12 +1,48 @@
 import 'package:flutter/material.dart';
+import 'package:shopeasy/screens/component/rootappbar.dart';
+import 'package:shopeasy/screens/homescreen/homepage.dart';
 import 'logsig.dart';
+import 'package:shopeasy/services/auth.dart' as auth;
 
-class WelcomePage extends StatelessWidget {
+class WelcomePage extends StatefulWidget {
   final VoidCallback hideCallback;
 
   const WelcomePage(
       {super.key,
       required this.hideCallback}); // Menggunakan required pada constructor
+  @override
+  WelcomePageState createState() => WelcomePageState(hideCallback: () {});
+}
+
+class WelcomePageState extends State<WelcomePage> {
+  final VoidCallback hideCallback;
+
+  initState() {
+    super.initState();
+    checkLoginStatus();
+  }
+
+  //check status login
+  Future<void> checkLoginStatus() async {
+    final authService = auth.AuthService();
+    final isLoggedIn = await authService.isLoggedIn();
+    if (isLoggedIn) {
+      print(
+          'Welcome page check: User is already logged in, moving to homepage instead');
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (context) => const homepage()),
+      );
+      Navigator.of(context).push(
+        MaterialPageRoute(builder: (context) => const rootappbar()),
+      );
+    } else {
+      print('User is not logged in');
+      //TODO: widget to show user is "not logged in"
+    }
+  }
+
+  WelcomePageState(
+      {required this.hideCallback}); // Menggunakan required pada constructor
   @override
   Widget build(BuildContext context) {
     return Scaffold(
