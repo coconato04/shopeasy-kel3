@@ -1,6 +1,10 @@
+// ignore_for_file: camel_case_types
+
 import 'package:flutter/material.dart';
 
 class easypay extends StatelessWidget {
+  easypay({super.key});
+
   double getProportionateScreenWidth(double inputWidth, BuildContext context) {
     // Ganti dengan logika penghitungan lebar proporsional yang sesuai
     // misalnya: return inputWidth * 0.8;
@@ -37,7 +41,7 @@ class easypay extends StatelessWidget {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 5,
                     ),
                     Text(
@@ -83,7 +87,7 @@ class easypay extends StatelessWidget {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                     Text(

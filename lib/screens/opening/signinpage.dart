@@ -1,19 +1,33 @@
+// ignore_for_file: unused_import, camel_case_types
+
 import 'package:flutter/material.dart';
 import 'package:shopeasy/screens/component/rootappbar.dart';
 import 'package:shopeasy/screens/homescreen/homepage.dart';
 import 'package:shopeasy/screens/isiapp/search.dart';
 import 'package:shopeasy/screens/opening/signuppage.dart';
+import 'package:shopeasy/services/auth.dart';
 
 class signinpage extends StatelessWidget {
+  final AuthService _auth = AuthService();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+
+  signinpage({super.key});
+  //When using emulator, and typing using physical (non-emulator) keyboard, the following error occurs:
+  //Inactive InputConnection errors polute the log when inputting email and password using keyboard.
+  //To fix the above, use the emulator keyboard instead.
+  //Seems to be a longstanding TextEditingController issue:
+  //https://github.com/flutter/flutter/issues/9471 opened since 2017 and still not closed/fixed.
+
   @override
   Widget build(BuildContext context) {
-    final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+    final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
           color: Colors.black,
-          icon: Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back),
           onPressed: () {
             Navigator.of(context).pop();
           },
@@ -23,28 +37,30 @@ class signinpage extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 30),
+          padding: const EdgeInsets.symmetric(horizontal: 30),
           child: Form(
-            key: _formKey,
+            key: formKey,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
+                const Text(
                   'LOGIN',
                   style: TextStyle(
                     fontSize: 35,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                SizedBox(height: 50), // Jarak antara teks "LOGIN" dan email
+                const SizedBox(
+                    height: 50), // Jarak antara teks "LOGIN" dan email
                 TextFormField(
+                  controller: emailController,
                   keyboardType: TextInputType.emailAddress,
                   textInputAction: TextInputAction.next,
                   cursorColor: Colors.lightBlue.shade800,
                   onSaved: (email) {},
                   decoration: InputDecoration(
                     hintText: "Your email",
-                    prefixIcon: Padding(
+                    prefixIcon: const Padding(
                       padding: EdgeInsets.all(12),
                       child: Icon(Icons.person),
                     ),
@@ -53,15 +69,15 @@ class signinpage extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                     height:
                         5), // Jarak antara email dan "EXAMPLE: axxxx@gmail,com"
                 Row(
                   // Menggunakan Row untuk menampilkan teks EXAMPLE: axxxx@gmail,com dan ikon sedikit ke kanan
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
+                  children: const [
                     Text(
-                      "EXAMPLE: axxxx@gmail,com",
+                      "EXAMPLE: axxxx@gmail.com",
                       style: TextStyle(fontSize: 11),
                     ),
                     SizedBox(width: 12),
@@ -72,14 +88,15 @@ class signinpage extends StatelessWidget {
                     ) // Ikon panah ke kanan
                   ],
                 ),
-                SizedBox(height: 25), // Jarak antara email dan password
+                const SizedBox(height: 25), // Jarak antara email dan password
                 TextFormField(
+                  controller: passwordController,
                   textInputAction: TextInputAction.done,
                   obscureText: true,
                   cursorColor: Colors.lightBlue.shade800,
                   decoration: InputDecoration(
                     hintText: "Your password",
-                    prefixIcon: Padding(
+                    prefixIcon: const Padding(
                       padding: EdgeInsets.all(12),
                       child: Icon(Icons.lock),
                     ),
@@ -88,7 +105,7 @@ class signinpage extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ), // Jarak antara password dan tombol "FORGOT PASSWORD?"
                 Row(
@@ -100,87 +117,132 @@ class signinpage extends StatelessWidget {
                       onPressed: () {
                         // Tambahkan logika untuk aksi tombol "FORGOT PASSWORD?"
                       },
-                      child: Text(
+                      child: const Text(
                         'FORGOT PASSWORD?',
                         style: TextStyle(fontSize: 12, color: Colors.black),
                       ),
                     ),
                   ],
                 ),
-                SizedBox(height: 20), //
+                const SizedBox(height: 20), //
                 ElevatedButton(
-                  onPressed: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => rootappbar()),
-                    );
+                  onPressed: () async {
                     // Tambahkan logika untuk aksi tombol "LOGIN"
-                    if (_formKey.currentState!.validate()) {
+                    if (formKey.currentState!.validate()) {
                       // Validasi form
-                      _formKey.currentState!.save();
+                      formKey.currentState!.save();
                       // Simpan nilai form
-                      // Tambahkan logika untuk proses login
+                      //login
+                      dynamic result = await _auth.signInWithEmailAndPassword(
+                          emailController.text, passwordController.text);
+                      if (result == null) {
+                        print('Error Logging In');
+                        print(
+                            "${emailController.text} ${passwordController.text}"); //TODO: for debugging purpose only. remove this
+                      } else {
+                        print('Login Success');
+                        print(
+                            result); //TODO: for debugging purpose only. remove this
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                              builder: (context) => const Homepage()),
+                        );
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                              builder: (context) => const rootappbar()),
+                        );
+                      }
                     }
                   },
-                  child: Text(
-                    'LOGIN',
-                    style: TextStyle(fontSize: 18),
-                  ),
                   style: ElevatedButton.styleFrom(
-                    primary: Colors.lightBlue.shade800,
-                    onPrimary: Colors.white,
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 140, vertical: 15),
+                    backgroundColor: Colors.lightBlue.shade800,
+                    foregroundColor: Colors.white,
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 140, vertical: 15),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30),
                     ),
                   ),
+                  child: const Text(
+                    'LOGIN',
+                    style: TextStyle(fontSize: 18),
+                  ),
                 ),
-                SizedBox(
+                const SizedBox(
                     height: 15), // Jarak antara tombol "LOGIN" dan teks "OR"
-                Text(
+                const Text(
                   'OR',
                   style: TextStyle(fontSize: 14),
                 ),
-                SizedBox(
+                const SizedBox(
                     height:
                         10), // Jarak antara teks "OR" dan tombol "SIGN IN WITH GOOGLE"
                 ElevatedButton(
-                  onPressed: () {
-                    // Tambahkan logika untuk aksi tombol "SIGN IN WITH GOOGLE"
+                  onPressed: () async {
+                    // logic
+                    dynamic result = await _auth.signInWithGoogle();
+                    if (result == null) {
+                      print('Error Logging In');
+                    } else {
+                      print('Login Success');
+                      print(
+                          result); //TODO: for debugging purpose only. remove this
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                            builder: (context) => const Homepage()),
+                      );
+                      Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context) => rootappbar()),
+                      );
+                    }
                   },
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Image.asset(
-                        'assets/icon/google.png', // Ganti dengan path gambar logo Google Anda
-                        width: 20,
-                        height: 20,
-                      ),
-                      SizedBox(width: 10),
-                      Text(
-                        'SIGN IN WITH GOOGLE',
-                        style: TextStyle(fontSize: 14),
-                      ),
-                    ],
-                  ),
                   style: ElevatedButton.styleFrom(
-                    primary: Colors.white,
-                    onPrimary: Colors.black,
-                    padding: EdgeInsets.symmetric(horizontal: 80, vertical: 15),
+                    backgroundColor: Colors.white,
+                    foregroundColor: Colors.black,
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 80, vertical: 15),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30),
-                      side: BorderSide(
+                      side: const BorderSide(
                         width: 1,
                         color: Colors.black, // Warna garis pada sisi-sisinya
                       ),
                     ),
                   ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Image.asset(
+                        'assets/icon/google.png',
+                        width: 20,
+                        height: 20,
+                      ),
+                      const SizedBox(width: 10),
+                      const Text(
+                        'SIGN IN WITH GOOGLE',
+                        style: TextStyle(fontSize: 14),
+                      ),
+                    ],
+                  ),
                 ),
-                SizedBox(
+                const SizedBox(
                     height:
                         15), // Jarak antara tombol "SIGN IN WITH GOOGLE" dan teks "DON'T HAVE AN ACCOUNT?"
                 ElevatedButton(
                   onPressed: () {},
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.white,
+                    foregroundColor: Colors.black,
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 70, vertical: 15),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30),
+                      side: const BorderSide(
+                        width: 1,
+                        color: Colors.black, // Warna garis pada sisi-sisinya
+                      ),
+                    ),
+                  ),
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
@@ -189,43 +251,31 @@ class signinpage extends StatelessWidget {
                         width: 20,
                         height: 20,
                       ),
-                      SizedBox(width: 10),
-                      Text(
+                      const SizedBox(width: 10),
+                      const Text(
                         'SIGN IN WITH FACEBOOK',
                         style: TextStyle(fontSize: 14),
                       ),
                     ],
                   ),
-                  style: ElevatedButton.styleFrom(
-                    primary: Colors.white,
-                    onPrimary: Colors.black,
-                    padding: EdgeInsets.symmetric(horizontal: 70, vertical: 15),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30),
-                      side: BorderSide(
-                        width: 1,
-                        color: Colors.black, // Warna garis pada sisi-sisinya
-                      ),
-                    ),
-                  ),
                 ),
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
                 Row(
                   // Menggunakan Row untuk menampilkan teks "DON'T HAVE AN ACCOUNT?" dan tombol "SIGN UP"
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
+                    const Text(
                       "DON'T HAVE AN ACCOUNT?",
                       style: TextStyle(fontSize: 12),
                     ),
-                    SizedBox(width: 5),
+                    const SizedBox(width: 5),
                     TextButton(
                       onPressed: () {
                         Navigator.of(context).push(
                           MaterialPageRoute(builder: (context) => signuppage()),
                         );
                       },
-                      child: Text(
+                      child: const Text(
                         'SIGN UP HERE',
                         style: TextStyle(fontSize: 12, color: Colors.blue),
                       ),

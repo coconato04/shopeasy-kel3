@@ -1,6 +1,10 @@
+// ignore_for_file: camel_case_types
+
 import 'package:flutter/material.dart';
 
 class recomended extends StatelessWidget {
+  recomended({super.key});
+
   double getProportionateScreenWidth(double inputWidth, BuildContext context) {
     // Ganti dengan logika penghitungan lebar proporsional yang sesuai
     // misalnya: return inputWidth * 0.8;
@@ -14,7 +18,7 @@ class recomended extends StatelessWidget {
       Padding(
         padding: EdgeInsets.symmetric(
             horizontal: getProportionateScreenWidth(20, context)),
-        child: Align(
+        child: const Align(
           alignment: Alignment.centerLeft, // Align ke kiri
           child: Text(
             'Categories',
@@ -29,7 +33,7 @@ class recomended extends StatelessWidget {
       SingleChildScrollView(
         scrollDirection: Axis.horizontal,
         child: Row(
-          children: <Widget>[
+          children: const <Widget>[
             SizedBox(width: 10),
             CategoryCard(
               icon: Icons.shopping_cart,
@@ -70,14 +74,14 @@ class CategoryCard extends StatelessWidget {
   final IconData icon;
   final String title;
 
-  CategoryCard({required this.icon, required this.title});
+  const CategoryCard({super.key, required this.icon, required this.title});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       width: 80,
-      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 16),
-      margin: EdgeInsets.only(right: 3),
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 16),
+      margin: const EdgeInsets.only(right: 3),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
         color: Colors.white,
@@ -86,11 +90,11 @@ class CategoryCard extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Icon(icon, size: 27),
-          SizedBox(height: 8),
+          const SizedBox(height: 8),
           Text(
             title,
             textAlign: TextAlign.center, // Menyusun teks menjadi rata tengah
-            style: TextStyle(fontSize: 12), // Mengurangi ukuran teks
+            style: const TextStyle(fontSize: 12), // Mengurangi ukuran teks
           ),
         ],
       ),

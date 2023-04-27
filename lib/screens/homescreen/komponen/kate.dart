@@ -1,6 +1,10 @@
+// ignore_for_file: camel_case_types, must_be_immutable
+
 import 'package:flutter/material.dart';
 
 class kate extends StatelessWidget {
+  kate({super.key});
+
   double getProportionateScreenWidth(double inputWidth, BuildContext context) {
     var screenWidth = MediaQuery.of(context).size.width;
     return (inputWidth / 375.0) * screenWidth;
@@ -20,9 +24,9 @@ class kate extends StatelessWidget {
       padding: EdgeInsets.all(getProportionateScreenWidth(1, context)),
       child: GridView.builder(
         shrinkWrap: true,
-        physics: NeverScrollableScrollPhysics(),
+        physics: const NeverScrollableScrollPhysics(),
         itemCount: menu.length,
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 5,
           childAspectRatio: 1.2, // Set childAspectRatio ke 1.0
         ),
