@@ -1,11 +1,13 @@
 // ignore_for_file: camel_case_types
 
 import 'package:flutter/material.dart';
+import 'package:shopeasy/screens/opening/logsig.dart';
 import '../component/rootappbar.dart';
 import '../homescreen/homepage.dart';
 import '../isiapp/search.dart';
 import '../opening/signuppage.dart';
 import 'otpform.dart';
+import 'package:shopeasy/services/auth.dart' as auth;
 
 class forgotpasswordpage extends StatefulWidget {
   const forgotpasswordpage({super.key});
@@ -18,6 +20,7 @@ class _forgotpasswordpageState extends State<forgotpasswordpage> {
   @override
   Widget build(BuildContext context) {
     final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+    TextEditingController emailController = TextEditingController();
 
     return Scaffold(
       appBar: AppBar(
@@ -60,6 +63,7 @@ class _forgotpasswordpageState extends State<forgotpasswordpage> {
                   ],
                 ),
                 TextFormField(
+                  controller: emailController,
                   keyboardType: TextInputType.emailAddress,
                   textInputAction: TextInputAction.next,
                   cursorColor: Colors.lightBlue.shade800,
@@ -81,17 +85,12 @@ class _forgotpasswordpageState extends State<forgotpasswordpage> {
 
                 const SizedBox(height: 20), //
                 ElevatedButton(
-                  onPressed: () {
+                  onPressed: () async {
+                    await auth.AuthService()
+                        .resetPassword(emailController.text);
                     Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => const otpform()),
+                      MaterialPageRoute(builder: (context) => const logsig()),
                     );
-                    // Tambahkan logika untuk aksi tombol "LOGIN"
-                    if (_formKey.currentState!.validate()) {
-                      // Validasi form
-                      _formKey.currentState!.save();
-                      // Simpan nilai form
-                      // Tambahkan logika untuk proses login
-                    }
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.lightBlue.shade800,

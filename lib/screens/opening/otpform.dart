@@ -1,4 +1,5 @@
 // ignore_for_file: camel_case_types
+//TODO: NOT USED WITH FIREBASE
 
 import 'package:flutter/material.dart';
 
