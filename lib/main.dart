@@ -1,24 +1,33 @@
+// ignore_for_file: unused_import, unused_field
+
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:shopeasy/screens/opening/welcomepage.dart';
 import 'package:shopeasy/screens/component/rootappbar.dart';
+import 'package:shopeasy/services/auth.dart' as auth;
 import 'package:flutter_swiper_null_safety/flutter_swiper_null_safety.dart';
 
-void main() {
-  runApp(MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  runApp(const MyApp());
 }
 
 class MyApp extends StatefulWidget {
+  const MyApp({super.key});
+
   // Menggunakan StatefulWidget agar dapat mengubah state
   @override
-  _MyAppState createState() => _MyAppState();
+  MyAppState createState() => MyAppState();
 }
 
-class _MyAppState extends State<MyApp> {
+class MyAppState extends State<MyApp> {
   bool _showWelcomePage = true;
   bool _showRootAppBar =
       false; // Menambahkan flag untuk menampilkan/hide RootAppBar
+  final bool _isUserSignedIn = false;
 
-  void _hideWelcomePage() {
+  void _hideWelcomePage() async {
     setState(() {
       _showWelcomePage = false;
       _showRootAppBar = true; // Mengubah flag untuk menampilkan RootAppBar

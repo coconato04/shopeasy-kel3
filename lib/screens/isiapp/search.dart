@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
 
+import '../component/rootappbar.dart';
+
 class Search extends StatefulWidget {
+  const Search({super.key});
+
   @override
-  _SearchState createState() => _SearchState();
+  SearchState createState() => SearchState();
 }
 
-class _SearchState extends State<Search> {
+class SearchState extends State<Search> {
+  // ignore: prefer_final_fields
   TextEditingController _searchController = TextEditingController();
   List<String> _searchResults = [];
 
@@ -30,6 +35,9 @@ class _SearchState extends State<Search> {
 
   void _onCancelPressed() {
     Navigator.pop(context); // Kembali ke halaman sebelumnya
+    Navigator.of(context).push(
+      MaterialPageRoute(builder: (context) => const rootappbar()),
+    );
   }
 
   @override
@@ -37,14 +45,14 @@ class _SearchState extends State<Search> {
     return Scaffold(
       body: Column(
         children: [
-          SizedBox(height: 45),
+          const SizedBox(height: 45),
           Padding(
-            padding: EdgeInsets.all(16.0),
+            padding: const EdgeInsets.all(16.0),
             child: TextField(
               controller: _searchController,
               onChanged: _onSearchTextChanged,
-              style: TextStyle(color: Colors.black),
-              decoration: InputDecoration(
+              style: const TextStyle(color: Colors.black),
+              decoration: const InputDecoration(
                 hintText: "Search...",
                 prefixIcon: Icon(
                   Icons.search,
@@ -68,16 +76,16 @@ class _SearchState extends State<Search> {
             ),
           ),
           Padding(
-            padding: EdgeInsets.all(20.0),
+            padding: const EdgeInsets.all(20.0),
             child: FloatingActionButton(
               elevation: 0.0,
               onPressed: _onCancelPressed,
-              child: Icon(
+              backgroundColor: Colors.transparent,
+              child: const Icon(
                 Icons.cancel_outlined,
                 size: 40.0,
                 color: Colors.black,
               ),
-              backgroundColor: Colors.transparent,
             ),
           ),
         ],

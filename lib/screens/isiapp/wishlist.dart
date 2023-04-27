@@ -1,12 +1,16 @@
+// ignore_for_file: camel_case_types
+
 import 'package:flutter/material.dart';
 import '../component/myappbar.dart';
 
 class wishlist extends StatefulWidget {
+  const wishlist({super.key});
+
   @override
-  _WishlistPageState createState() => _WishlistPageState();
+  WishlistPageState createState() => WishlistPageState();
 }
 
-class _WishlistPageState extends State<wishlist> {
+class WishlistPageState extends State<wishlist> {
   List<String> wishlistItems = []; // List untuk menyimpan item dalam wishlist
 
   @override
@@ -33,7 +37,7 @@ class _WishlistPageState extends State<wishlist> {
                 children: [
                   Expanded(
                     child: Container(
-                      padding: EdgeInsets.all(16.0),
+                      padding: const EdgeInsets.all(16.0),
                       child: Row(
                         children: [
                           Container(
@@ -41,18 +45,18 @@ class _WishlistPageState extends State<wishlist> {
                             height: 80.0,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(8.0),
-                              image: DecorationImage(
+                              image: const DecorationImage(
                                 image: AssetImage(
                                     'assets/icon/logo.png'), // Ganti dengan sumber gambar yang sesuai
                                 fit: BoxFit.cover,
                               ),
                             ),
                           ),
-                          SizedBox(width: 8.0),
+                          const SizedBox(width: 8.0),
                           Expanded(
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
+                              children: const [
                                 Text(
                                   'Nama Produk 1', // Ganti dengan nama produk yang sesuai
                                   style: TextStyle(
@@ -68,7 +72,7 @@ class _WishlistPageState extends State<wishlist> {
                             ),
                           ),
                           IconButton(
-                            icon: Icon(Icons.favorite, color: Colors.red),
+                            icon: const Icon(Icons.favorite, color: Colors.red),
                             onPressed: () {
                               // Aksi ketika tombol like ditekan
                             },
@@ -79,7 +83,7 @@ class _WishlistPageState extends State<wishlist> {
                   ),
                 ],
               ),
-              Divider(
+              const Divider(
                 // Garis horizontal untuk membatasi antara dua produk
                 thickness: 1.0, // Ketebalan garis
                 color: Colors.grey, // Warna garis
@@ -91,7 +95,7 @@ class _WishlistPageState extends State<wishlist> {
                 children: [
                   Expanded(
                     child: Container(
-                      padding: EdgeInsets.all(16.0),
+                      padding: const EdgeInsets.all(16.0),
                       child: Row(
                         children: [
                           Container(
@@ -99,18 +103,18 @@ class _WishlistPageState extends State<wishlist> {
                             height: 80.0,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(8.0),
-                              image: DecorationImage(
+                              image: const DecorationImage(
                                 image: AssetImage(
                                     'assets/icon/logo.png'), // Ganti dengan sumber gambar yang sesuai
                                 fit: BoxFit.cover,
                               ),
                             ),
                           ),
-                          SizedBox(width: 8.0),
+                          const SizedBox(width: 8.0),
                           Expanded(
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
+                              children: const [
                                 Text(
                                   'Nama Produk 2', // Ganti dengan nama produk yang sesuai
                                   style: TextStyle(
@@ -126,7 +130,7 @@ class _WishlistPageState extends State<wishlist> {
                             ),
                           ),
                           IconButton(
-                            icon: Icon(Icons.favorite, color: Colors.red),
+                            icon: const Icon(Icons.favorite, color: Colors.red),
                             onPressed: () {
                               // Aksi ketika tombol like ditekan
                             },
@@ -137,7 +141,7 @@ class _WishlistPageState extends State<wishlist> {
                   ),
                 ],
               ),
-              Divider(
+              const Divider(
                 // Garis horizontal untuk membatasi antara dua produk
                 thickness: 1.0, // Ketebalan garis
                 color: Colors.grey, // Warna garis
@@ -148,7 +152,7 @@ class _WishlistPageState extends State<wishlist> {
                 children: [
                   Expanded(
                     child: Container(
-                      padding: EdgeInsets.all(16.0),
+                      padding: const EdgeInsets.all(16.0),
                       child: Row(
                         children: [
                           Container(
@@ -156,18 +160,18 @@ class _WishlistPageState extends State<wishlist> {
                             height: 80.0,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(8.0),
-                              image: DecorationImage(
+                              image: const DecorationImage(
                                 image: AssetImage(
                                     'assets/icon/logo.png'), // Ganti dengan sumber gambar yang sesuai
                                 fit: BoxFit.cover,
                               ),
                             ),
                           ),
-                          SizedBox(width: 8.0),
+                          const SizedBox(width: 8.0),
                           Expanded(
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
+                              children: const [
                                 Text(
                                   'Nama Produk 3', // Ganti dengan nama produk yang sesuai
                                   style: TextStyle(
@@ -183,7 +187,7 @@ class _WishlistPageState extends State<wishlist> {
                             ),
                           ),
                           IconButton(
-                            icon: Icon(Icons.favorite, color: Colors.red),
+                            icon: const Icon(Icons.favorite, color: Colors.red),
                             onPressed: () {
                               // Aksi ketika tombol like ditekan
                             },
@@ -194,7 +198,7 @@ class _WishlistPageState extends State<wishlist> {
                   ),
                 ],
               ),
-              Divider(
+              const Divider(
                 // Garis horizontal untuk membatasi antara dua produk
                 thickness: 1.0, // Ketebalan garis
                 color: Colors.grey, // Warna garis
@@ -206,7 +210,7 @@ class _WishlistPageState extends State<wishlist> {
                 children: [
                   Expanded(
                     child: Container(
-                      padding: EdgeInsets.all(16.0),
+                      padding: const EdgeInsets.all(16.0),
                       child: Row(
                         children: [
                           Container(
@@ -214,18 +218,18 @@ class _WishlistPageState extends State<wishlist> {
                             height: 80.0,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(8.0),
-                              image: DecorationImage(
+                              image: const DecorationImage(
                                 image: AssetImage(
                                     'assets/icon/logo.png'), // Ganti dengan sumber gambar yang sesuai
                                 fit: BoxFit.cover,
                               ),
                             ),
                           ),
-                          SizedBox(width: 8.0),
+                          const SizedBox(width: 8.0),
                           Expanded(
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
+                              children: const [
                                 Text(
                                   'Nama Produk 2', // Ganti dengan nama produk yang sesuai
                                   style: TextStyle(
@@ -241,7 +245,7 @@ class _WishlistPageState extends State<wishlist> {
                             ),
                           ),
                           IconButton(
-                            icon: Icon(Icons.favorite, color: Colors.red),
+                            icon: const Icon(Icons.favorite, color: Colors.red),
                             onPressed: () {
                               // Aksi ketika tombol like ditekan
                             },
@@ -252,7 +256,7 @@ class _WishlistPageState extends State<wishlist> {
                   ),
                 ],
               ),
-              Divider(
+              const Divider(
                 // Garis horizontal untuk membatasi antara dua produk
                 thickness: 1.0, // Ketebalan garis
                 color: Colors.grey, // Warna garis
@@ -263,7 +267,7 @@ class _WishlistPageState extends State<wishlist> {
                 children: [
                   Expanded(
                     child: Container(
-                      padding: EdgeInsets.all(16.0),
+                      padding: const EdgeInsets.all(16.0),
                       child: Row(
                         children: [
                           Container(
@@ -271,18 +275,18 @@ class _WishlistPageState extends State<wishlist> {
                             height: 80.0,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(8.0),
-                              image: DecorationImage(
+                              image: const DecorationImage(
                                 image: AssetImage(
                                     'assets/icon/logo.png'), // Ganti dengan sumber gambar yang sesuai
                                 fit: BoxFit.cover,
                               ),
                             ),
                           ),
-                          SizedBox(width: 8.0),
+                          const SizedBox(width: 8.0),
                           Expanded(
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
+                              children: const [
                                 Text(
                                   'Nama Produk 3', // Ganti dengan nama produk yang sesuai
                                   style: TextStyle(
@@ -298,7 +302,7 @@ class _WishlistPageState extends State<wishlist> {
                             ),
                           ),
                           IconButton(
-                            icon: Icon(Icons.favorite, color: Colors.red),
+                            icon: const Icon(Icons.favorite, color: Colors.red),
                             onPressed: () {
                               // Aksi ketika tombol like ditekan
                             },
@@ -309,7 +313,7 @@ class _WishlistPageState extends State<wishlist> {
                   ),
                 ],
               ),
-              Divider(
+              const Divider(
                 // Garis horizontal untuk membatasi antara dua produk
                 thickness: 1.0, // Ketebalan garis
                 color: Colors.grey, // Warna garis
@@ -321,7 +325,7 @@ class _WishlistPageState extends State<wishlist> {
                 children: [
                   Expanded(
                     child: Container(
-                      padding: EdgeInsets.all(16.0),
+                      padding: const EdgeInsets.all(16.0),
                       child: Row(
                         children: [
                           Container(
@@ -329,18 +333,18 @@ class _WishlistPageState extends State<wishlist> {
                             height: 80.0,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(8.0),
-                              image: DecorationImage(
+                              image: const DecorationImage(
                                 image: AssetImage(
                                     'assets/icon/logo.png'), // Ganti dengan sumber gambar yang sesuai
                                 fit: BoxFit.cover,
                               ),
                             ),
                           ),
-                          SizedBox(width: 8.0),
+                          const SizedBox(width: 8.0),
                           Expanded(
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
+                              children: const [
                                 Text(
                                   'Nama Produk 2', // Ganti dengan nama produk yang sesuai
                                   style: TextStyle(
@@ -356,7 +360,7 @@ class _WishlistPageState extends State<wishlist> {
                             ),
                           ),
                           IconButton(
-                            icon: Icon(Icons.favorite, color: Colors.red),
+                            icon: const Icon(Icons.favorite, color: Colors.red),
                             onPressed: () {
                               // Aksi ketika tombol like ditekan
                             },
@@ -367,7 +371,7 @@ class _WishlistPageState extends State<wishlist> {
                   ),
                 ],
               ),
-              Divider(
+              const Divider(
                 // Garis horizontal untuk membatasi antara dua produk
                 thickness: 1.0, // Ketebalan garis
                 color: Colors.grey, // Warna garis
@@ -378,7 +382,7 @@ class _WishlistPageState extends State<wishlist> {
                 children: [
                   Expanded(
                     child: Container(
-                      padding: EdgeInsets.all(16.0),
+                      padding: const EdgeInsets.all(16.0),
                       child: Row(
                         children: [
                           Container(
@@ -386,18 +390,18 @@ class _WishlistPageState extends State<wishlist> {
                             height: 80.0,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(8.0),
-                              image: DecorationImage(
+                              image: const DecorationImage(
                                 image: AssetImage(
                                     'assets/icon/logo.png'), // Ganti dengan sumber gambar yang sesuai
                                 fit: BoxFit.cover,
                               ),
                             ),
                           ),
-                          SizedBox(width: 8.0),
+                          const SizedBox(width: 8.0),
                           Expanded(
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
+                              children: const [
                                 Text(
                                   'Nama Produk 3', // Ganti dengan nama produk yang sesuai
                                   style: TextStyle(
@@ -413,7 +417,7 @@ class _WishlistPageState extends State<wishlist> {
                             ),
                           ),
                           IconButton(
-                            icon: Icon(Icons.favorite, color: Colors.red),
+                            icon: const Icon(Icons.favorite, color: Colors.red),
                             onPressed: () {
                               // Aksi ketika tombol like ditekan
                             },
@@ -424,7 +428,7 @@ class _WishlistPageState extends State<wishlist> {
                   ),
                 ],
               ),
-              Divider(
+              const Divider(
                 // Garis horizontal untuk membatasi antara dua produk
                 thickness: 1.0, // Ketebalan garis
                 color: Colors.grey, // Warna garis

@@ -1,3 +1,5 @@
+// ignore_for_file: camel_case_types
+
 import 'package:flutter/material.dart';
 import 'package:shopeasy/screens/homescreen/homepage.dart';
 import 'package:shopeasy/screens/isiapp/myaccount.dart';
@@ -6,6 +8,8 @@ import 'package:shopeasy/screens/isiapp/wishlist.dart';
 import 'package:shopeasy/screens/isiapp/search.dart';
 
 class rootappbar extends StatefulWidget {
+  const rootappbar({Key? key}) : super(key: key);
+
   @override
   State<StatefulWidget> createState() {
     return _HomePageState();
@@ -14,11 +18,11 @@ class rootappbar extends StatefulWidget {
 
 class _HomePageState extends State<rootappbar> {
   final List<Widget> _widgetList = [
-    homepage(),
-    transaction(),
-    Search(),
-    wishlist(),
-    myaccount(),
+    const homepage(),
+    const transaction(),
+    const Search(),
+    const wishlist(),
+    const myaccount(),
   ];
 
   int _index = 0;
@@ -36,7 +40,7 @@ class _HomePageState extends State<rootappbar> {
             _index = index;
           });
         },
-        items: [
+        items: const [
           BottomNavigationBarItem(
             icon: Icon(
               Icons.home_outlined,

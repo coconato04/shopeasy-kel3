@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "162184595482",
+    "project_id": "shopeasy-kel3",
+    "storage_bucket": "shopeasy-kel3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:162184595482:android:fb0aeac056a07c1c0ea9a3",
+        "android_client_info": {
+          "package_name": "com.kelompok3.shopeasy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "162184595482-c6e90jglbh1k36dre1oqf8c4aksvopgf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.kelompok3.shopeasy",
+            "certificate_hash": "2ff8c0e7259845a287a021d8eade87797281eda5"
+          }
+        },
+        {
+          "client_id": "162184595482-t79qq2a6u3nrjlv3r984vi9jcq1v3895.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDJM6JnKoxZBABOFjL5eh1eMHKV-vE4R-o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "162184595482-q3kapo3coqm360git2r8061l0grvg9t8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

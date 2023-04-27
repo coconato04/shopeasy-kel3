@@ -1,3 +1,5 @@
+// ignore_for_file: camel_case_types
+
 import 'package:flutter/material.dart';
 import 'package:shopeasy/screens/homescreen/homepage.dart';
 import 'package:shopeasy/screens/isiapp/search.dart';
@@ -15,7 +17,8 @@ class myappbar extends StatelessWidget implements PreferredSizeWidget {
   final double leadingImageWidth;
   final double leadingImageHeight;
 
-  myappbar({
+  const myappbar({
+    super.key,
     required this.onCartPressed,
     required this.onNotificationPressed,
     required this.onSearchPressed,
@@ -30,7 +33,7 @@ class myappbar extends StatelessWidget implements PreferredSizeWidget {
   });
 
   @override
-  Size get preferredSize => Size.fromHeight(kToolbarHeight);
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 
   @override
   Widget build(BuildContext context) {
@@ -41,12 +44,12 @@ class myappbar extends StatelessWidget implements PreferredSizeWidget {
         title: GestureDetector(
           onTap: () {
             Navigator.of(context).push(
-              MaterialPageRoute(builder: (context) => Search()),
+              MaterialPageRoute(builder: (context) => const Search()),
             );
           },
           child: Container(
             height: 27,
-            padding: EdgeInsets.symmetric(horizontal: 10),
+            padding: const EdgeInsets.symmetric(horizontal: 10),
             decoration: BoxDecoration(
               color: Colors.grey[300],
               borderRadius: BorderRadius.circular(20),
@@ -57,7 +60,7 @@ class myappbar extends StatelessWidget implements PreferredSizeWidget {
                   searchProductText,
                   style: TextStyle(fontSize: 15, color: searchProductTextColor),
                 ),
-                SizedBox(width: 78),
+                const SizedBox(width: 78),
                 Icon(searchProductIcon, color: searchProductTextColor),
               ],
             ),
@@ -66,7 +69,7 @@ class myappbar extends StatelessWidget implements PreferredSizeWidget {
         leading: InkWell(
           onTap: () {
             Navigator.of(context).push(
-              MaterialPageRoute(builder: (context) => homepage()),
+              MaterialPageRoute(builder: (context) => const homepage()),
             );
           },
           child: Image.asset(
@@ -77,17 +80,17 @@ class myappbar extends StatelessWidget implements PreferredSizeWidget {
         ),
         actions: [
           Padding(
-            padding: EdgeInsets.only(right: 0),
+            padding: const EdgeInsets.only(right: 0),
             child: IconButton(
-              icon: Icon(Icons.shopping_cart_outlined),
+              icon: const Icon(Icons.shopping_cart_outlined),
               onPressed: onCartPressed,
               color: iconColor,
             ),
           ),
           Padding(
-            padding: EdgeInsets.only(right: 0),
+            padding: const EdgeInsets.only(right: 0),
             child: IconButton(
-              icon: Icon(Icons.notifications_none_outlined),
+              icon: const Icon(Icons.notifications_none_outlined),
               onPressed: onNotificationPressed,
               color: iconColor,
             ),

@@ -1,6 +1,10 @@
+// ignore_for_file: camel_case_types, must_be_immutable
+
 import 'package:flutter/material.dart';
 
 class d extends StatelessWidget {
+  d({super.key});
+
   double getProportionateScreenWidth(double inputWidth, BuildContext context) {
     // Ganti dengan logika penghitungan lebar proporsional yang sesuai
     // misalnya: return inputWidth * 0.8;
@@ -38,9 +42,9 @@ class d extends StatelessWidget {
                 child: Column(
                   children: [
                     Align(
-                      alignment: Alignment(-0.2, 0),
+                      alignment: const Alignment(-0.2, 0),
                       child: Padding(
-                        padding: EdgeInsets.only(
+                        padding: const EdgeInsets.only(
                             right:
                                 6.0), // Atur jarak kanan antara Container dan Text
                         child: Text(
@@ -54,14 +58,14 @@ class d extends StatelessWidget {
                               Shadow(
                                 color: Colors.black.withOpacity(0.4),
                                 blurRadius: 5,
-                                offset: Offset(0, 5),
+                                offset: const Offset(0, 5),
                               ),
                             ],
                           ),
                         ),
                       ),
                     ),
-                    Spacer(), // Menambahkan Spacer untuk menggeser ke bawah
+                    const Spacer(), // Menambahkan Spacer untuk menggeser ke bawah
                     Align(
                       alignment: Alignment
                           .bottomCenter, // Mengatur posisi gambar ke bawah
@@ -97,7 +101,7 @@ class d extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: Colors.grey.shade300,
                   borderRadius: BorderRadius.circular(10),
-                  image: DecorationImage(
+                  image: const DecorationImage(
                     image: AssetImage('assets/icon/perabotan.png'),
                     fit: BoxFit.cover,
                   ),
@@ -110,7 +114,7 @@ class d extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Padding(
-                            padding: EdgeInsets.only(),
+                            padding: const EdgeInsets.only(),
                             child: Text(
                               "LIMITED",
                               textAlign: TextAlign.center,
@@ -123,7 +127,7 @@ class d extends StatelessWidget {
                             ),
                           ),
                           Padding(
-                            padding: EdgeInsets.only(),
+                            padding: const EdgeInsets.only(),
                             child: Text(
                               "STOCK FLASH SLAE UP TO ",
                               textAlign: TextAlign.center,
@@ -135,7 +139,7 @@ class d extends StatelessWidget {
                             ),
                           ),
                           Padding(
-                            padding: EdgeInsets.only(),
+                            padding: const EdgeInsets.only(),
                             child: Text(
                               "'90%'",
                               textAlign: TextAlign.center,
@@ -149,7 +153,7 @@ class d extends StatelessWidget {
                         ],
                       ),
                     ),
-                    Spacer(),
+                    const Spacer(),
                     SizedBox(
                       height: getProportionateScreenWidth(0, context),
                       // Mengurangi jarak antara gambar dan bawah
@@ -175,7 +179,7 @@ class d extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: Colors.grey.shade300,
                   borderRadius: BorderRadius.circular(10),
-                  image: DecorationImage(
+                  image: const DecorationImage(
                     image: AssetImage('assets/icon/food.png'),
                     fit: BoxFit.cover,
                   ),
@@ -183,12 +187,12 @@ class d extends StatelessWidget {
                 child: Column(
                   children: [
                     Align(
-                      alignment: Alignment(-0.2, 0),
+                      alignment: const Alignment(-0.2, 0),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
                           Padding(
-                            padding: EdgeInsets.only(right: 3.0),
+                            padding: const EdgeInsets.only(right: 3.0),
                             child: Text(
                               "70%OFF FOOD COUPONS",
                               textAlign: TextAlign.right,
@@ -201,7 +205,7 @@ class d extends StatelessWidget {
                             ),
                           ),
                           Padding(
-                            padding: EdgeInsets.only(right: 3.0, top: 0),
+                            padding: const EdgeInsets.only(right: 3.0, top: 0),
                             child: Text(
                               "FOOD RECOMMENDATION",
                               textAlign: TextAlign.right,
@@ -213,7 +217,7 @@ class d extends StatelessWidget {
                             ),
                           ),
                           Padding(
-                            padding: EdgeInsets.only(right: 3.0, top: 0),
+                            padding: const EdgeInsets.only(right: 3.0, top: 0),
                             child: Text(
                               "'DISC UNTIL 110K'",
                               textAlign: TextAlign.right,
@@ -225,7 +229,7 @@ class d extends StatelessWidget {
                             ),
                           ),
                           Padding(
-                            padding: EdgeInsets.only(right: 3.0, top: 0),
+                            padding: const EdgeInsets.only(right: 3.0, top: 0),
                             child: Text(
                               "Tap Here!",
                               textAlign: TextAlign.right,
@@ -239,7 +243,7 @@ class d extends StatelessWidget {
                         ],
                       ),
                     ),
-                    Spacer(),
+                    const Spacer(),
                     SizedBox(
                       height: getProportionateScreenWidth(3, context),
                       // Mengurangi jarak antara gambar dan bawah
