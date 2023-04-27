@@ -1,6 +1,8 @@
 // ignore_for_file: camel_case_types
 
 import 'package:flutter/material.dart';
+import 'package:shopeasy/screens/opening/logsig.dart';
+import 'package:shopeasy/services/auth.dart' as auth;
 
 class myaccount extends StatelessWidget {
   const myaccount({super.key});
@@ -98,8 +100,15 @@ class myaccount extends StatelessWidget {
 
                 // Tombol Logout
                 ElevatedButton(
-                  onPressed: () {
+                  onPressed: () async {
                     // Aksi ketika tombol logout di klik
+                    // TODO: Sign out user
+                    await auth.AuthService().signOut();
+                    print('signout attempt');
+                    // Move to logsig screen
+                    Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(builder: (context) => const logsig()),
+                    );
                   },
                   child: const Text('Logout'),
                 ),
