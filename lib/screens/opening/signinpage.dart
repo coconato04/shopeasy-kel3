@@ -6,6 +6,7 @@ import 'package:shopeasy/screens/homescreen/homepage.dart';
 import 'package:shopeasy/screens/isiapp/search.dart';
 import 'package:shopeasy/screens/opening/signuppage.dart';
 import 'package:shopeasy/services/auth.dart';
+import 'forgotpasswordpage.dart';
 
 class signinpage extends StatelessWidget {
   final AuthService _auth = AuthService();
@@ -116,6 +117,11 @@ class signinpage extends StatelessWidget {
                     TextButton(
                       onPressed: () {
                         // Tambahkan logika untuk aksi tombol "FORGOT PASSWORD?"
+                        //move to forgotpassword page
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                              builder: (context) => const forgotpasswordpage()),
+                        );
                       },
                       child: const Text(
                         'FORGOT PASSWORD?',

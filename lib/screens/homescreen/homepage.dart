@@ -41,7 +41,7 @@ class homepageState extends State<homepage> {
     if (isLoggedIn) {
       print('Homepage login check: User is already logged in');
     } else {
-      print('Homepage login check: Uaser is not logged in');
+      print('Homepage login check: User is not logged in');
       //TODO: widget to show user is "not logged in"
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(builder: (context) => const logsig()),
@@ -63,13 +63,6 @@ class homepageState extends State<homepage> {
           },
           onNotificationPressed: () async {
             // Aksi ketika tombol notifikasi ditekan
-            // TODO: Sign out user
-            await auth.AuthService().signOut();
-            print('signout attempt');
-            // Move to logsig screen
-            Navigator.of(context).pushReplacement(
-              MaterialPageRoute(builder: (context) => const logsig()),
-            );
           },
           onSearchPressed: () {
             // Aksi ketika tombol pencarian ditekan
@@ -119,13 +112,6 @@ class Homepage extends StatelessWidget {
         },
         onNotificationPressed: () async {
           // Aksi ketika tombol notifikasi ditekan
-          // TODO: Sign out user
-          await auth.AuthService().signOut();
-          print('signout attempt');
-          // Move to logsig screen
-          Navigator.of(context).pushReplacement(
-            MaterialPageRoute(builder: (context) => const logsig()),
-          );
         },
         onSearchPressed: () {
           // Aksi ketika tombol pencarian ditekan

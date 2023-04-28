@@ -108,6 +108,7 @@ class AuthService {
   //forgot password
   Future forgotPassword(String email) async {
     try {
+      print('firebase forgot password $email');
       return await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
     } catch (e) {
       print(e.toString());
