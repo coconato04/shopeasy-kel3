@@ -1,6 +1,7 @@
 // ignore_for_file: camel_case_types
 
 import 'package:flutter/material.dart';
+import 'package:shopeasy/screens/isiapp/account/profile.dart';
 import 'package:shopeasy/screens/opening/logsig.dart';
 import 'package:shopeasy/services/auth.dart' as auth;
 
@@ -41,10 +42,10 @@ class myaccount extends StatelessWidget {
                       SizedBox(height: 16.0),
                       ElevatedButton.icon(
                         onPressed: () {
-                          // Navigator.of(context).push(
-                          //   MaterialPageRoute(
-                          //       builder: (context) => EditProfilePage()),
-                          // );
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                                builder: (context) => EditProfilePage()),
+                          );
                         },
                         icon: Icon(Icons.edit),
                         label: Text('Edit Profile'),
