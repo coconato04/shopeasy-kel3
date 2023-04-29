@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:shopeasy/screens/isiapp/myaccount/profile.dart';
+import 'package:shopeasy/screens/isiapp/contenthomepage/profile.dart';
 
 class myaccount extends StatelessWidget {
   @override

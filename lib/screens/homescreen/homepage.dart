@@ -3,6 +3,7 @@ import 'package:shopeasy/screens/component/myappbar.dart';
 import 'package:shopeasy/screens/homescreen/komponen/iklan.dart';
 import 'package:shopeasy/screens/homescreen/komponen/recomended.dart';
 import 'package:shopeasy/screens/homescreen/komponen/tamp.dart';
+import 'package:shopeasy/screens/isiapp/contenthomepage/shoppingcart.dart';
 
 class homepage extends StatelessWidget {
   double getProportionateScreenWidth(double inputWidth, BuildContext context) {
@@ -17,9 +18,7 @@ class homepage extends StatelessWidget {
     var size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: myappbar(
-        onCartPressed: () {
-          // Aksi ketika tombol keranjang belanja ditekan
-        },
+        onCartPressed: () {},
         onNotificationPressed: () {
           // Aksi ketika tombol notifikasi ditekan
         },
@@ -64,10 +63,14 @@ class Homepage extends StatelessWidget {
     return Scaffold(
       appBar: myappbar(
         onCartPressed: () {
-          // Aksi ketika tombol keranjang belanja ditekan
+          Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => ShoppingCartPage()),
+          );
         },
         onNotificationPressed: () {
-          // Aksi ketika tombol notifikasi ditekan
+          Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => ShoppingCartPage()),
+          );
         },
         onSearchPressed: () {
           // Aksi ketika tombol pencarian ditekan
