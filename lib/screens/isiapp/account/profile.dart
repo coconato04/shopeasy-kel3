@@ -11,11 +11,6 @@ class EditProfilePage extends StatefulWidget {
 }
 
 class _EditProfilePageState extends State<EditProfilePage> {
-  @override
-  void initState() {
-    super.initState();
-  }
-
   XFile? _imageFile;
   late TextEditingController _usernameController;
   String _email = '';
