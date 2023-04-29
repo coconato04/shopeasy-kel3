@@ -9,6 +9,7 @@ class EditProfilePage extends StatefulWidget {
 
 class _EditProfilePageState extends State<EditProfilePage> {
   XFile? _imageFile;
+  String _username = 'John Doe';
 
   Future<void> _pickImage(ImageSource source) async {
     final imagePicker = ImagePicker();
@@ -18,6 +19,10 @@ class _EditProfilePageState extends State<EditProfilePage> {
     setState(() {
       _imageFile = pickedFile;
     });
+  }
+
+  void _saveUsername() {
+    // Save username to database or storage
   }
 
   @override
@@ -44,11 +49,23 @@ class _EditProfilePageState extends State<EditProfilePage> {
               child: const Text('Choose Image'),
             ),
             const SizedBox(height: 16.0),
+            Container(
+              width: 200.0,
+              child: TextField(
+                decoration: InputDecoration(
+                  labelText: 'Username',
+                ),
+                onChanged: (value) {
+                  setState(() {
+                    _username = value;
+                  });
+                },
+              ),
+            ),
+            const SizedBox(height: 16.0),
             ElevatedButton(
-              onPressed: () {
-                // Save image to database or storage
-              },
-              child: const Text('Save Image'),
+              onPressed: _saveUsername,
+              child: const Text('Save Username'),
             ),
           ],
         ),
