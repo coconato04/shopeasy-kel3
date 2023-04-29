@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class EditProfilePage extends StatefulWidget {
   @override
@@ -9,7 +10,20 @@ class EditProfilePage extends StatefulWidget {
 
 class _EditProfilePageState extends State<EditProfilePage> {
   XFile? _imageFile;
-  String _username = 'John Doe';
+  late TextEditingController _usernameController;
+  String _email = '';
+  String _username = ''; // Menambahkan deklarasi variabel _username
+
+  @override
+  void initState() {
+    super.initState();
+    // Get the email of the logged in user
+    final currentUser = FirebaseAuth.instance.currentUser;
+    if (currentUser != null) {
+      _email = currentUser.email!;
+    }
+    _usernameController = TextEditingController(text: _username);
+  }
 
   Future<void> _pickImage(ImageSource source) async {
     final imagePicker = ImagePicker();
@@ -23,6 +37,17 @@ class _EditProfilePageState extends State<EditProfilePage> {
 
   void _saveUsername() {
     // Save username to database or storage
+    String newUsername = _usernameController.text;
+    // Your code to save the newUsername to database or storage
+    setState(() {
+      _username = newUsername;
+      _usernameController.text = _username;
+    });
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text('Username saved successfully.'),
+      ),
+    );
   }
 
   @override
@@ -50,22 +75,26 @@ class _EditProfilePageState extends State<EditProfilePage> {
             ),
             const SizedBox(height: 16.0),
             Container(
-              width: 200.0,
+              width: 300.0,
               child: TextField(
+                controller: _usernameController,
                 decoration: InputDecoration(
                   labelText: 'Username',
                 ),
-                onChanged: (value) {
-                  setState(() {
-                    _username = value;
-                  });
-                },
               ),
             ),
             const SizedBox(height: 16.0),
             ElevatedButton(
               onPressed: _saveUsername,
               child: const Text('Save Username'),
+            ),
+            const SizedBox(height: 16.0),
+            Text(
+              'Logged in as: $_email',
+              style: TextStyle(
+                fontSize: 16.0,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ],
         ),
