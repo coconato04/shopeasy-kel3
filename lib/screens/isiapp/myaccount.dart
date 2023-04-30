@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:shopeasy/screens/isiapp/content/keamanan.dart';
 import 'package:shopeasy/screens/isiapp/content/profile.dart';
 import 'package:shopeasy/screens/isiapp/content/salesmode.dart';
+import 'package:shopeasy/screens/isiapp/sales/registersales.dart';
 import 'package:shopeasy/screens/opening/logsig.dart';
 import 'package:shopeasy/services/auth.dart' as auth;
 import 'package:firebase_auth/firebase_auth.dart';
@@ -22,6 +23,7 @@ class myaccountState extends State<myaccount> {
   void initState() {
     super.initState();
     _loadUserData();
+    _photoUrl = 'assets/icon/Whiskas.png';
   }
 
   Future<void> _loadUserData() async {
@@ -34,6 +36,22 @@ class myaccountState extends State<myaccount> {
     }
   }
 
+  void _updateProfilePicture(String newPhotoUrl) {
+    setState(() {
+      _photoUrl = newPhotoUrl;
+    });
+  }
+
+  void _navigateToEditProfilePage(BuildContext context) {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => EditProfilePage(
+          updateProfilePicture: _updateProfilePicture,
+        ),
+      ),
+    );
+  }
+
   //getters and setters
   String? get userID => _userData?['userID'];
   String? get username => _userData?['username'];
@@ -41,6 +59,7 @@ class myaccountState extends State<myaccount> {
   int? get easypayBalance => _userData?['easypayBalance'];
   String? get photoUrl => _userData?['photoUrl'];
   String? get createdAt => _userData?['createdAt'];
+  String? _photoUrl;
 
   @override
   Widget build(BuildContext context) {
@@ -55,11 +74,14 @@ class myaccountState extends State<myaccount> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   // Bagian Profil
-                  const CircleAvatar(
+                  CircleAvatar(
                     radius: 40.0,
-                    backgroundImage: AssetImage(
-                        'assets/icon/her loss.png'), // Ganti dengan gambar profil pengguna
+                    backgroundImage: _photoUrl != null
+                        ? NetworkImage(_photoUrl!) as ImageProvider<Object>?
+                        : AssetImage('assets/icon/Whiskas.png')
+                            as ImageProvider<Object>?,
                   ),
+
                   const SizedBox(height: 16.0),
                   Column(
                     children: [
@@ -76,10 +98,9 @@ class myaccountState extends State<myaccount> {
                       const SizedBox(height: 16.0),
                       ElevatedButton.icon(
                         onPressed: () {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                                builder: (context) => EditProfilePage()),
-                          );
+                          _navigateToEditProfilePage(context);
+                          child:
+                          Text('Edit Profile');
                         },
                         icon: const Icon(Icons.edit),
                         label: const Text('Edit Profile'),
@@ -116,19 +137,14 @@ class myaccountState extends State<myaccount> {
                         onTap: () {
                           Navigator.of(context).push(
                             MaterialPageRoute(
-                                builder: (context) => HomeSalesPage()),
+                                builder: (context) => RegisterSales()),
                           );
                         },
                       ),
                       ListTile(
                         leading: const Icon(Icons.security),
                         title: const Text('Keamanan'),
-                        onTap: () {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                                builder: (context) => RegisterStorePage()),
-                          );
-                        },
+                        onTap: () {},
                       ),
                       ListTile(
                         leading: const Icon(Icons.history),

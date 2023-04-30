@@ -6,17 +6,20 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:shopeasy/services/auth.dart' as auth;
 
 class EditProfilePage extends StatefulWidget {
-  const EditProfilePage({super.key});
+  final void Function(String) updateProfilePicture;
+  const EditProfilePage({required this.updateProfilePicture, super.key});
 
   @override
   _EditProfilePageState createState() => _EditProfilePageState();
 }
 
 class _EditProfilePageState extends State<EditProfilePage> {
+  final _formKey = GlobalKey<FormState>();
   XFile? _imageFile;
   late TextEditingController _usernameController;
   String _email = '';
   String _username = ''; // Menambahkan deklarasi variabel _username
+  String? _newPhotoUrl;
 
   @override
   void initState() {
@@ -79,53 +82,121 @@ class _EditProfilePageState extends State<EditProfilePage> {
     );
   }
 
+  void _submitForm() {
+    if (_formKey.currentState!.validate()) {
+      _formKey.currentState!.save();
+      // Save new photo URL to database
+      // ...
+
+      // Call callback function to update profile picture in myaccount
+      widget.updateProfilePicture(_newPhotoUrl!);
+
+      // Go back to previous page
+      Navigator.of(context).pop();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Edit Profile'),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            CircleAvatar(
-              radius: 50.0,
-              backgroundImage: _imageFile == null
-                  ? const AssetImage('assets/icon/her loss.png')
-                  : FileImage(File(_imageFile!.path)) as ImageProvider<Object>?,
-            ),
-            const SizedBox(height: 16.0),
-            ElevatedButton(
-              onPressed: () {
-                _pickImage(ImageSource.gallery);
-              },
-              child: const Text('Choose Image'),
-            ),
-            const SizedBox(height: 16.0),
-            SizedBox(
-              width: 300.0,
-              child: TextField(
-                controller: _usernameController,
-                decoration: const InputDecoration(
-                  labelText: 'Username',
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Center(
+                  child: InkWell(
+                    onTap: () {
+                      showModalBottomSheet(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return SafeArea(
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                ListTile(
+                                  leading: const Icon(Icons.photo_library),
+                                  title: const Text('Choose from library'),
+                                  onTap: () {
+                                    _pickImage(ImageSource.gallery);
+                                    Navigator.pop(context);
+                                  },
+                                ),
+                                ListTile(
+                                  leading: const Icon(Icons.photo_camera),
+                                  title: const Text('Take a picture'),
+                                  onTap: () {
+                                    _pickImage(ImageSource.camera);
+                                    Navigator.pop(context);
+                                  },
+                                ),
+                              ],
+                            ),
+                          );
+                        },
+                      );
+                    },
+                    child: CircleAvatar(
+                      radius: 50,
+                      backgroundImage: _imageFile != null
+                          ? FileImage(File(_imageFile!.path))
+                          : const AssetImage('assets/icon/usericon.png')
+                              as ImageProvider,
+                    ),
+                  ),
                 ),
-              ),
+                const SizedBox(height: 16.0),
+                TextFormField(
+                  decoration: const InputDecoration(
+                    labelText: 'Username',
+                    hintText: 'Enter your username',
+                    border: OutlineInputBorder(),
+                  ),
+                  controller: _usernameController,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter your username';
+                    }
+                    return null;
+                  },
+                  onSaved: (value) {
+                    _username = value!;
+                  },
+                ),
+                const SizedBox(height: 16.0),
+                Row(
+                  children: [
+                    Expanded(
+                      child: ElevatedButton(
+                        onPressed: _saveUsername,
+                        child: const Text('Save'),
+                      ),
+                    ),
+                    const SizedBox(width: 16.0),
+                    Expanded(
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: const Text('Cancel'),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 16.0),
+                ElevatedButton(
+                  onPressed: _submitForm,
+                  child: const Text('Save Changes'),
+                ),
+              ],
             ),
-            const SizedBox(height: 16.0),
-            ElevatedButton(
-              onPressed: _saveUsername,
-              child: const Text('Save Username'),
-            ),
-            const SizedBox(height: 16.0),
-            Text(
-              'Logged in as: $_email',
-              style: const TextStyle(
-                fontSize: 16.0,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ],
+          ),
         ),
       ),
     );
