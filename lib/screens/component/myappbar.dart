@@ -1,7 +1,9 @@
 // ignore_for_file: camel_case_types
 
 import 'package:flutter/material.dart';
+import 'package:shopeasy/screens/component/rootappbar.dart';
 import 'package:shopeasy/screens/homescreen/homepage.dart';
+import 'package:shopeasy/screens/isiapp/content/shoppingcart.dart';
 import 'package:shopeasy/screens/isiapp/search.dart';
 
 class myappbar extends StatelessWidget implements PreferredSizeWidget {
@@ -69,7 +71,7 @@ class myappbar extends StatelessWidget implements PreferredSizeWidget {
         leading: InkWell(
           onTap: () {
             Navigator.of(context).push(
-              MaterialPageRoute(builder: (context) => const homepage()),
+              MaterialPageRoute(builder: (context) => rootappbar()),
             );
           },
           child: Image.asset(
@@ -83,7 +85,11 @@ class myappbar extends StatelessWidget implements PreferredSizeWidget {
             padding: const EdgeInsets.only(right: 0),
             child: IconButton(
               icon: const Icon(Icons.shopping_cart_outlined),
-              onPressed: onCartPressed,
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => ShoppingCartPage()),
+                );
+              },
               color: iconColor,
             ),
           ),
