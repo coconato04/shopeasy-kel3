@@ -48,14 +48,30 @@ class _EditProfilePageState extends State<EditProfilePage> {
   }
 
   void _saveUsername() {
-    // Save username to database or storage
-    String newUsername = _usernameController.text;
+    // Get the username from the text field
+    String tempUsername = _usernameController.text;
+    // username manipulation
+    String newUsername = _email.substring(0, _email.indexOf('@'));
+    ;
+    if (tempUsername.isEmpty) {
+      //take from email, already done
+    } else {
+      // Limit the username to 15 characters if it is more than 15 characters
+      if (tempUsername.length > 15) {
+        newUsername = tempUsername.substring(0, 15);
+      } else {
+        newUsername = tempUsername;
+      }
+    }
     // Your code to save the newUsername to database or storage
     saveUserData(newUsername, "username");
     setState(() {
       _username = newUsername;
       _usernameController.text = _username;
     });
+    //move to profile page
+    Navigator.pop(context);
+    // Show snackbar
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(
         content: Text('Username saved successfully.'),
