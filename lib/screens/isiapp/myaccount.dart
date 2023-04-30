@@ -1,7 +1,7 @@
 // ignore_for_file: camel_case_types
 
 import 'package:flutter/material.dart';
-import 'package:shopeasy/screens/isiapp/account/profile.dart';
+import 'package:shopeasy/screens/isiapp/content/profile.dart';
 import 'package:shopeasy/screens/opening/logsig.dart';
 import 'package:shopeasy/services/auth.dart' as auth;
 import 'package:firebase_auth/firebase_auth.dart';
