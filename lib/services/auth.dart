@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -164,6 +166,10 @@ class AuthService {
         'easypayBalance': 0,
         'photoUrl': '',
         'createdAt': DateTime.now().millisecondsSinceEpoch,
+        'coupons': [],
+        'purchaseHistory': [],
+        'shoppingCart': [],
+        'favoritesList': [],
       };
 
       await FirebaseFirestore.instance
@@ -181,9 +187,13 @@ class AuthService {
 
   //create random username
   createRandomUsername() {
-    String temp = 'user${DateTime.now().millisecondsSinceEpoch}';
-    //return only 15 characters
-    final String username = temp.substring(0, 15);
+    //use random
+    final random = Random();
+    //create random username
+    String username = 'user${random.nextInt(10000)}';
+    if (username.length > 15) {
+      username = username.substring(0, 15);
+    }
     return username;
   }
 
@@ -201,7 +211,10 @@ class AuthService {
         'easypayBalance': 0,
         'photoUrl': '',
         'createdAt': DateTime.now().millisecondsSinceEpoch,
-        'updatedAt': DateTime.now().millisecondsSinceEpoch,
+        'coupons': [],
+        'purchaseHistory': [],
+        'shoppingCart': [],
+        'favoritesList': [],
       };
 
       await FirebaseFirestore.instance
