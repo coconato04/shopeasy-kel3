@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shopeasy/screens/isiapp/contenthomepage/profile.dart';
+import 'package:shopeasy/screens/isiapp/contenthomepage/registersales.dart';
 
 class myaccount extends StatelessWidget {
   @override
@@ -81,7 +82,10 @@ class myaccount extends StatelessWidget {
                         leading: Icon(Icons.security),
                         title: Text('Keamanan'),
                         onTap: () {
-                          // Aksi ketika opsi keamanan di klik
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                                builder: (context) => RegisterStorePage()),
+                          );
                         },
                       ),
                       ListTile(

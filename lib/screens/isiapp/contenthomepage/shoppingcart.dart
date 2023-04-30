@@ -7,9 +7,14 @@ class ShoppingCartPage extends StatefulWidget {
 
 class _ShoppingCartPageState extends State<ShoppingCartPage> {
   final List<Map<String, dynamic>> _cartItems = [
-    {'name': 'Product 1', 'price': 10, 'image': 'logo.png', 'quantity': 0},
-    {'name': 'Product 2', 'price': 20, 'image': 'logo.png', 'quantity': 0},
-    {'name': 'Product 3', 'price': 30, 'image': 'her loss.png', 'quantity': 0},
+    {'name': 'Product 1', 'price': 10.0, 'image': 'logo.png', 'quantity': 0},
+    {'name': 'Product 2', 'price': 20.0, 'image': 'logo.png', 'quantity': 0},
+    {
+      'name': 'Product 3',
+      'price': 30.0,
+      'image': 'her loss.png',
+      'quantity': 0
+    },
   ];
 
   double _totalPrice = 0;
@@ -18,24 +23,29 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
   void initState() {
     super.initState();
 
-    // Calculate the total price of items in the cart
-    _totalPrice = _cartItems.fold<double>(
-      0,
-      (total, item) =>
-          total + (item['price'] as double) * (item['quantity'] as int),
-    );
+    _totalPrice = _cartItems
+        .fold<num>(
+          0,
+          (total, item) =>
+              total + (item['price'] as num) * (item['quantity'] as num),
+        )
+        .toDouble();
   }
 
   void _increaseItemCount(int index) {
     setState(() {
-      _cartItems[index]['quantity']++;
-      _totalPrice += _cartItems[index]['price'];
+      if (index >= 0 && index < _cartItems.length) {
+        _cartItems[index]['quantity']++;
+        _totalPrice += _cartItems[index]['price'];
+      }
     });
   }
 
   void _decreaseItemCount(int index) {
     setState(() {
-      if (_cartItems[index]['quantity'] > 0) {
+      if (index >= 0 &&
+          index < _cartItems.length &&
+          _cartItems[index]['quantity'] > 0) {
         _cartItems[index]['quantity']--;
         _totalPrice -= _cartItems[index]['price'];
       }
@@ -89,22 +99,23 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Text(
-                  'Total: \$$_totalPrice',
+                  'Total: \$${_totalPrice.toStringAsFixed(2)}',
                   style: TextStyle(
-                    fontSize: 20.0,
+                    fontSize: 24.0,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                const SizedBox(height: 16.0),
                 ElevatedButton(
                   onPressed: () {
-                    // Navigate to the next page for checkout
-                    Navigator.of(context).push(
+                    Navigator.push(
+                      context,
                       MaterialPageRoute(
-                          builder: (BuildContext context) => CheckoutPage()),
+                        builder: (context) =>
+                            CheckoutPage(totalPrice: _totalPrice),
+                      ),
                     );
                   },
-                  child: Text('Checkout'),
+                  child: Text('Proceed to Checkout'),
                 ),
               ],
             ),
@@ -116,6 +127,10 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
 }
 
 class CheckoutPage extends StatelessWidget {
+  final double totalPrice;
+
+  const CheckoutPage({Key? key, required this.totalPrice}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -123,7 +138,24 @@ class CheckoutPage extends StatelessWidget {
         title: Text('Checkout'),
       ),
       body: Center(
-        child: Text('Checkout page'),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              'Total Price: \$${totalPrice.toStringAsFixed(2)}',
+              style: TextStyle(
+                fontSize: 24.0,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                // Code to process checkout
+              },
+              child: Text('Process Checkout'),
+            ),
+          ],
+        ),
       ),
     );
   }

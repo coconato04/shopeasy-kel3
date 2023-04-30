@@ -67,11 +67,7 @@ class Homepage extends StatelessWidget {
             MaterialPageRoute(builder: (context) => ShoppingCartPage()),
           );
         },
-        onNotificationPressed: () {
-          Navigator.of(context).push(
-            MaterialPageRoute(builder: (context) => ShoppingCartPage()),
-          );
-        },
+        onNotificationPressed: () {},
         onSearchPressed: () {
           // Aksi ketika tombol pencarian ditekan
         },
