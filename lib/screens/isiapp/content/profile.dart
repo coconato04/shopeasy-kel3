@@ -6,6 +6,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:shopeasy/services/auth.dart' as auth;
 
 class EditProfilePage extends StatefulWidget {
+  const EditProfilePage({super.key});
+
   @override
   _EditProfilePageState createState() => _EditProfilePageState();
 }
@@ -37,16 +39,41 @@ class _EditProfilePageState extends State<EditProfilePage> {
     });
   }
 
+  Future<void> saveUserData(String newValue, String field) async {
+    User? user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      final userData = await auth.AuthService().updateUserData(
+          user: user, collection: "users", field: field, value: newValue);
+    }
+  }
+
   void _saveUsername() {
-    // Save username to database or storage
-    String newUsername = _usernameController.text;
+    // Get the username from the text field
+    String tempUsername = _usernameController.text;
+    // username manipulation
+    String newUsername = _email.substring(0, _email.indexOf('@'));
+    ;
+    if (tempUsername.isEmpty) {
+      //take from email, already done
+    } else {
+      // Limit the username to 15 characters if it is more than 15 characters
+      if (tempUsername.length > 15) {
+        newUsername = tempUsername.substring(0, 15);
+      } else {
+        newUsername = tempUsername;
+      }
+    }
     // Your code to save the newUsername to database or storage
+    saveUserData(newUsername, "username");
     setState(() {
       _username = newUsername;
       _usernameController.text = _username;
     });
+    //move to profile page
+    Navigator.pop(context);
+    // Show snackbar
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
+      const SnackBar(
         content: Text('Username saved successfully.'),
       ),
     );
@@ -76,11 +103,11 @@ class _EditProfilePageState extends State<EditProfilePage> {
               child: const Text('Choose Image'),
             ),
             const SizedBox(height: 16.0),
-            Container(
+            SizedBox(
               width: 300.0,
               child: TextField(
                 controller: _usernameController,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: 'Username',
                 ),
               ),
@@ -93,7 +120,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
             const SizedBox(height: 16.0),
             Text(
               'Logged in as: $_email',
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 16.0,
                 fontWeight: FontWeight.bold,
               ),
