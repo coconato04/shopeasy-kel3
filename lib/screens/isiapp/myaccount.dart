@@ -1,6 +1,7 @@
 // ignore_for_file: camel_case_types
 
 import 'package:flutter/material.dart';
+import 'package:shopeasy/screens/isiapp/content/keamanan.dart';
 import 'package:shopeasy/screens/isiapp/content/profile.dart';
 import 'package:shopeasy/screens/isiapp/content/salesmode.dart';
 import 'package:shopeasy/screens/opening/logsig.dart';
@@ -123,7 +124,10 @@ class myaccountState extends State<myaccount> {
                         leading: const Icon(Icons.security),
                         title: const Text('Keamanan'),
                         onTap: () {
-                          // Aksi ketika opsi keamanan di klik
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                                builder: (context) => RegisterStorePage()),
+                          );
                         },
                       ),
                       ListTile(
