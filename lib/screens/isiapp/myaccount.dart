@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:shopeasy/screens/isiapp/content/profile.dart';
+import 'package:shopeasy/screens/isiapp/content/salesmode.dart';
 import 'package:shopeasy/screens/opening/logsig.dart';
 import 'package:shopeasy/services/auth.dart' as auth;
 import 'package:firebase_auth/firebase_auth.dart';
@@ -109,10 +110,13 @@ class myaccountState extends State<myaccount> {
                         },
                       ),
                       ListTile(
-                        leading: const Icon(Icons.language),
-                        title: const Text('Bahasa'),
+                        leading: const Icon(Icons.home_work),
+                        title: const Text('toko anda'),
                         onTap: () {
-                          // Aksi ketika opsi bahasa di klik
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                                builder: (context) => HomeSalesPage()),
+                          );
                         },
                       ),
                       ListTile(
