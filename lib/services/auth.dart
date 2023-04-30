@@ -230,4 +230,22 @@ class AuthService {
       return null;
     }
   }
+
+  //update user data in firestore
+  Future updateUserData(
+      {required User user,
+      required String collection,
+      required String field,
+      required String value}) async {
+    try {
+      final docUser = await FirebaseFirestore.instance
+          .collection(collection)
+          .doc(user.uid)
+          .update({field: value});
+      return docUser;
+    } catch (e) {
+      print(e.toString());
+      return null;
+    }
+  }
 }
