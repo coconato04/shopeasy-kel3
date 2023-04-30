@@ -2,6 +2,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:shopeasy/services/auth.dart' as auth;
 
 class EditProfilePage extends StatefulWidget {
   @override
@@ -63,7 +65,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
             CircleAvatar(
               radius: 50.0,
               backgroundImage: _imageFile == null
-                  ? AssetImage('assets/icon/her loss.png')
+                  ? const AssetImage('assets/icon/her loss.png')
                   : FileImage(File(_imageFile!.path)) as ImageProvider<Object>?,
             ),
             const SizedBox(height: 16.0),

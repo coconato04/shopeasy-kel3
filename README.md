@@ -5,7 +5,7 @@ A "Marketplace" themed Flutter project by Kelompok 3. Insert flavor text here.
 ## Currently only working on Android
 
 Backend used: Firebase  
-Database: Firestore?  
+Database: Firestore  
   
 "I broke the main branch" - Sun Tzu  
 
@@ -19,6 +19,7 @@ Database: Firestore?
 - Signout  
 - Forgot password  
 - Resend Email Verification (AuthService code is there but not tested, needs UI)
+- User database with Firestore
 
 ## Current Errors/To-Do List
 - UI pop-ups for messages (login failed, need verification, etc)

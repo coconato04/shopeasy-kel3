@@ -10,7 +10,6 @@ class signuppage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-    // ignore: unused_local_variable
     final TextEditingController usernameController =
         TextEditingController(); //need database
     final TextEditingController emailController = TextEditingController();
@@ -48,7 +47,7 @@ class signuppage extends StatelessWidget {
                 ),
                 const SizedBox(height: 50),
                 TextFormField(
-                  //controller: usernameController,
+                  controller: usernameController,
                   keyboardType: TextInputType.text,
                   textInputAction: TextInputAction.next,
                   cursorColor: Colors.lightBlue.shade800,
@@ -136,6 +135,10 @@ class signuppage extends StatelessWidget {
                           print('Registration Success');
                           print(
                               result); //TODO: for debugging purpose only. remove this
+                          //create user in database
+                          auth.createUserWithEmail(
+                              username: usernameController.text,
+                              email: emailController.text);
                           Navigator.of(context).push(
                             //route to sign in
                             MaterialPageRoute(

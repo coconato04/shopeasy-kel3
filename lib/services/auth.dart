@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -110,6 +111,120 @@ class AuthService {
     try {
       print('firebase forgot password $email');
       return await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+    } catch (e) {
+      print(e.toString());
+      return null;
+    }
+  }
+
+  //create user check
+  Future userAndEmailIsDuplicate(
+      {required String username, required String email}) async {
+    try {
+      //check if username already exists
+      final usernameDuplicate = await FirebaseFirestore.instance
+          .collection('users')
+          .where('username', isEqualTo: username)
+          .get();
+
+      //check if email already exists
+      final emailDuplicate = await FirebaseFirestore.instance
+          .collection('users')
+          .where('email', isEqualTo: email)
+          .get();
+
+      //return false if username or email already exists
+      if (usernameDuplicate.docs.isNotEmpty || emailDuplicate.docs.isNotEmpty) {
+        return false;
+      } else {
+        return true;
+      }
+    } catch (e) {
+      print(e.toString());
+      return null;
+    }
+  }
+
+  //create user firestore
+  Future createUserWithEmail(
+      {required String username, required String email}) async {
+    try {
+      //get firebase auth user id
+      final user = FirebaseAuth.instance.currentUser!;
+      //create user document in firestore
+      final docUser = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(user.uid)
+          .get();
+
+      final json = {
+        'userID': docUser.id,
+        'username': username,
+        'email': email,
+        'easypayBalance': 0,
+        'photoUrl': '',
+        'createdAt': DateTime.now().millisecondsSinceEpoch,
+      };
+
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(docUser.id)
+          .set(json);
+
+      print('create user firestore success');
+      return true;
+    } catch (e) {
+      print(e.toString());
+      return null;
+    }
+  }
+
+  //create random username
+  createRandomUsername() {
+    String temp = 'user${DateTime.now().millisecondsSinceEpoch}';
+    //return only 15 characters
+    final String username = temp.substring(0, 15);
+    return username;
+  }
+
+  //create user firestore with google sign in
+  Future createUserWithGoogle({required String email}) async {
+    try {
+      //create user document in firestore
+      final docUser =
+          await FirebaseFirestore.instance.collection('users').doc().get();
+
+      final json = {
+        'userID': docUser.id,
+        'username': createRandomUsername(),
+        'email': email,
+        'easypayBalance': 0,
+        'photoUrl': '',
+        'createdAt': DateTime.now().millisecondsSinceEpoch,
+        'updatedAt': DateTime.now().millisecondsSinceEpoch,
+      };
+
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(docUser.id)
+          .set(json);
+
+      print('create user firestore success');
+      return true;
+    } catch (e) {
+      print(e.toString());
+      return null;
+    }
+  }
+
+  //get data from firestore using firebase auth user as input and return user data in json format or null if error occurs
+  Future getUserData(User user) async {
+    try {
+      final docUser = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(user.uid)
+          .get();
+      return docUser.data();
     } catch (e) {
       print(e.toString());
       return null;
