@@ -5,12 +5,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
-class HomeSalesPage extends StatefulWidget {
+class SalesPage extends StatefulWidget {
   @override
   _HomeSalesPageState createState() => _HomeSalesPageState();
 }
 
-class _HomeSalesPageState extends State<HomeSalesPage> {
+class _HomeSalesPageState extends State<SalesPage> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _db = FirebaseFirestore.instance;
   final FirebaseStorage _storage = FirebaseStorage.instance;

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shopeasy/screens/isiapp/content/salesmode.dart';
 
 class HomeStore extends StatefulWidget {
   @override
@@ -347,7 +348,9 @@ class _HomeStoreState extends State<HomeStore> {
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
         onPressed: () {
-          // Tambahkan aksi yang dijalankan ketika tombol tambah produk diklik
+          Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => SalesPage()),
+          );
         },
       ),
     );
