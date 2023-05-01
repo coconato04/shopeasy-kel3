@@ -1,7 +1,9 @@
 // ignore_for_file: camel_case_types
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:shopeasy/screens/component/myappbar.dart';
+import 'package:shopeasy/services/auth.dart' as auth;
 
 class transaction extends StatefulWidget {
   const transaction({super.key});
@@ -10,31 +12,34 @@ class transaction extends StatefulWidget {
 }
 
 class _PayPageState extends State<transaction> {
-  // initialize user data
-  final double saldo = 1000000;
-  final List<Map<String, dynamic>> riwayat = [
-    {
-      "tanggal": "01/05/2023",
-      "jumlah": 10000,
-      "keterangan": "Pembayaran tagihan listrik"
-    },
-    {"tanggal": "02/05/2023", "jumlah": 50000, "keterangan": "Top up saldo"},
-    {"tanggal": "03/05/2023", "jumlah": 75000, "keterangan": "Pembelian pulsa"},
-    {
-      "tanggal": "04/05/2023",
-      "jumlah": 20000,
-      "keterangan": null // field keterangan bernilai null
-    },
-    {
-      "tanggal": "05/05/2023",
-      "jumlah": 100000,
-      "keterangan": "Pembelian barang"
-    },
-  ];
+  Map<String, dynamic>? _userData;
+  @override
+  void initState() {
+    super.initState();
+    _loadUserData();
+  }
+
+  Future<void> _loadUserData() async {
+    User? user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      final userData = await auth.AuthService().getUserData(user);
+      setState(() {
+        _userData = userData;
+      });
+    }
+  }
+
+  //getters and setters
+  String? get userID => _userData?['userID'];
+  String? get username => _userData?['username'];
+  String? get email => _userData?['email'];
+  int? get easypayBalance => _userData?['easypayBalance'];
+  String? get photoUrl => _userData?['photoUrl'];
+  String? get createdAt => _userData?['createdAt'];
 
 // menggunakan operator null-aware untuk mengecek apakah keterangan null atau tidak
   String getKeterangan(Map<String, dynamic> item) {
-    return item["keterangan"] ?? "-";
+    return item["keterangan"]?.toString() ?? "-";
   }
 
   @override
@@ -152,7 +157,7 @@ class SaldoEasypay extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  'Saldo Easypay',
+                  'Saldo Easypay anda',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: getProportionateScreenWidth(16, context),
@@ -180,7 +185,7 @@ class SaldoEasypay extends StatelessWidget {
                 return ListTile(
                   title: Text(transaksi['keterangan']),
                   subtitle: Text(transaksi['tanggal']),
-                  trailing: Text(transaksi['jumlah']),
+                  trailing: Text(transaksi['jumlah'].toString()),
                 );
               },
             ),
