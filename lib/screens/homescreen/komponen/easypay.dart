@@ -2,6 +2,8 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:shopeasy/screens/component/rootappbar.dart';
+import 'package:shopeasy/screens/isiapp/transaction.dart';
 import 'package:shopeasy/services/auth.dart' as auth;
 
 class easypay extends StatefulWidget {
@@ -64,34 +66,56 @@ class easypayState extends State<easypay> {
             children: [
               SizedBox(width: getProportionateScreenWidth(5, context)),
               Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Your EasyPay',
-                      style: TextStyle(
-                        fontSize: getProportionateScreenWidth(16, context),
-                        fontWeight: FontWeight.bold,
+                child: Ink(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.5),
+                        spreadRadius: 2,
+                        blurRadius: 5,
+                        offset: Offset(0, 3),
                       ),
+                    ],
+                  ),
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const transaction()),
+                      );
+                    },
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Your EasyPay',
+                          style: TextStyle(
+                            fontSize: getProportionateScreenWidth(16, context),
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 5,
+                        ),
+                        Text(
+                          'Balance',
+                          style: TextStyle(
+                            fontSize: getProportionateScreenWidth(14, context),
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Text(
+                          'Rp. $easypayBalance',
+                          style: TextStyle(
+                            fontSize: getProportionateScreenWidth(13, context),
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
                     ),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    Text(
-                      'Balance',
-                      style: TextStyle(
-                        fontSize: getProportionateScreenWidth(14, context),
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    Text(
-                      'Rp. $easypayBalance',
-                      style: TextStyle(
-                        fontSize: getProportionateScreenWidth(13, context),
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ],
+                  ),
                 ),
               ),
               SizedBox(width: getProportionateScreenWidth(15, context)),
