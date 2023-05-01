@@ -195,6 +195,7 @@ class SaldoEasypay extends StatelessWidget {
               final transaksi = riwayat[index];
               return ListTile(
                 leading: getTransactionIcon(transaksi['keterangan']),
+                subtitle: Text(transaksi['tanggal']),
                 title: Text(transaksi['keterangan']),
                 trailing: Text(transaksi['jumlah'].toString()),
               );
