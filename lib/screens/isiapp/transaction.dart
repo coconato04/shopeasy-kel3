@@ -48,12 +48,37 @@ class _PayPageState extends State<transaction> {
           {
             "tanggal": "04/05/2023",
             "jumlah": 20000,
-            "keterangan": getKeterangan()
+            "keterangan": "pembelian pulsa"
           },
           {
             "tanggal": "05/05/2023",
             "jumlah": 100000,
             "keterangan": "dana masuk"
+          },
+          {
+            "tanggal": "06/05/2023",
+            "jumlah": 200000,
+            "keterangan": "pembayaran listrik"
+          },
+          {
+            "tanggal": "07/05/2023",
+            "jumlah": 50000,
+            "keterangan": "top up saldo"
+          },
+          {
+            "tanggal": "08/05/2023",
+            "jumlah": 75000,
+            "keterangan": "Top up saldo"
+          },
+          {
+            "tanggal": "09/05/2023",
+            "jumlah": 20000,
+            "keterangan": "pembelian pulsa"
+          },
+          {
+            "tanggal": "10/05/2023",
+            "jumlah": 100000,
+            "keterangan": "pembelian pulsa"
           },
         ];
       });
@@ -104,6 +129,22 @@ class SaldoEasypay extends StatelessWidget {
     return (inputWidth / 375.0) * screenWidth;
   }
 
+  Icon getTransactionIcon(String keterangan) {
+    IconData icon;
+    Color color;
+    if (keterangan == "dana masuk" || keterangan == "Top up saldo") {
+      icon = Icons.arrow_circle_up;
+      color = Colors.green;
+    } else {
+      icon = Icons.arrow_circle_down;
+      color = Colors.red;
+    }
+    return Icon(
+      icon,
+      color: color,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final double saldo = userData?['easypayBalance']?.toDouble() ?? 0.0;
@@ -148,18 +189,17 @@ class SaldoEasypay extends StatelessWidget {
           ),
           SizedBox(height: getProportionateScreenWidth(20, context)),
           Expanded(
-            child: ListView.builder(
-              itemCount: riwayat.length,
-              itemBuilder: (BuildContext context, int index) {
-                Map<String, dynamic> transaksi = riwayat[index];
-                return ListTile(
-                  title: Text(transaksi['keterangan']),
-                  subtitle: Text(transaksi['tanggal']),
-                  trailing: Text(transaksi['jumlah'].toString()),
-                );
-              },
-            ),
-          ),
+              child: ListView.builder(
+            itemCount: riwayat.length,
+            itemBuilder: (context, index) {
+              final transaksi = riwayat[index];
+              return ListTile(
+                leading: getTransactionIcon(transaksi['keterangan']),
+                title: Text(transaksi['keterangan']),
+                trailing: Text(transaksi['jumlah'].toString()),
+              );
+            },
+          )),
         ],
       ),
     );
