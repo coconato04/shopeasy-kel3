@@ -13,6 +13,9 @@ class transaction extends StatefulWidget {
 
 class _PayPageState extends State<transaction> {
   Map<String, dynamic>? _userData;
+  double saldo = 0.0;
+  List<Map<String, dynamic>> riwayat = [];
+
   @override
   void initState() {
     super.initState();
@@ -25,22 +28,50 @@ class _PayPageState extends State<transaction> {
       final userData = await auth.AuthService().getUserData(user);
       setState(() {
         _userData = userData;
+        saldo = _userData?['easypayBalance']?.toDouble() ?? 0.0;
+        riwayat = [
+          {
+            "tanggal": "01/05/2023",
+            "jumlah": 10000,
+            "keterangan": "Top up saldo"
+          },
+          {
+            "tanggal": "02/05/2023",
+            "jumlah": 50000,
+            "keterangan": "Top up saldo"
+          },
+          {
+            "tanggal": "03/05/2023",
+            "jumlah": 75000,
+            "keterangan": "Top up saldo"
+          },
+          {
+            "tanggal": "04/05/2023",
+            "jumlah": 20000,
+            "keterangan": getKeterangan()
+          },
+          {
+            "tanggal": "05/05/2023",
+            "jumlah": 100000,
+            "keterangan": "dana masuk"
+          },
+        ];
       });
     }
   }
 
-  //getters and setters
+// menggunakan operator null-aware untuk mengecek apakah keterangan null atau tidak
+  String getKeterangan() {
+    return _userData?['keterangan']?.toString() ?? "-";
+  }
+
+//getters and setters
   String? get userID => _userData?['userID'];
   String? get username => _userData?['username'];
   String? get email => _userData?['email'];
   int? get easypayBalance => _userData?['easypayBalance'];
   String? get photoUrl => _userData?['photoUrl'];
   String? get createdAt => _userData?['createdAt'];
-
-// menggunakan operator null-aware untuk mengecek apakah keterangan null atau tidak
-  String getKeterangan(Map<String, dynamic> item) {
-    return item["keterangan"]?.toString() ?? "-";
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -56,88 +87,27 @@ class _PayPageState extends State<transaction> {
             // Aksi ketika tombol pencarian ditekan
           },
         ),
-        body: Column(
-          children: [
-            // Tambahkan TabBar di sini
-            TabBar(
-              tabs: [
-                Tab(text: "Tabungan"),
-                Tab(text: "Riwayat Transaksi"),
-              ],
-
-              indicatorColor: Color.fromARGB(255, 0, 167, 250),
-              indicatorSize: TabBarIndicatorSize.tab,
-              labelColor: Colors.black,
-              unselectedLabelColor: Colors
-                  .grey[300], // menentukan warna teks Tab yang tidak aktif
-              dividerColor: Colors.black,
-            ),
-            // Tambahkan Expanded agar ListView mengambil sisa ruang yang tersedia
-            Expanded(
-              // Letakkan TabBarView di sini
-              child: TabBarView(
-                children: [
-                  // Tabungan
-                  SaldoEasypay(saldo: saldo, riwayat: riwayat),
-                  // Riwayat Transaksi
-                  // Riwayat Transaksi
-                  ListView(
-                    children: [
-                      ListTile(
-                        leading: Icon(Icons.arrow_upward, color: Colors.green),
-                        title: Text("Penghasilan dari pekerjaan"),
-                        subtitle: Text("25 April 2023"),
-                        trailing: Text("+Rp500000.00"),
-                      ),
-                      ListTile(
-                        leading: Icon(Icons.arrow_downward, color: Colors.red),
-                        title: Text("Membeli bahan makanan"),
-                        subtitle: Text("24 April 2023"),
-                        trailing: Text("-Rp100000.00"),
-                      ),
-                      ListTile(
-                        leading: Icon(Icons.arrow_upward, color: Colors.green),
-                        title: Text("Penghasilan dari pekerjaan"),
-                        subtitle: Text("23 April 2023"),
-                        trailing: Text("+Rp500000.00"),
-                      ),
-                      ListTile(
-                        leading: Icon(Icons.arrow_downward, color: Colors.red),
-                        title: Text("Membayar tagihan listrik"),
-                        subtitle: Text("23 April 2023"),
-                        trailing: Text("-Rp200000.00"),
-                      ),
-                      ListTile(
-                        leading: Icon(Icons.arrow_downward, color: Colors.red),
-                        title: Text("Membeli tiket pesawat"),
-                        subtitle: Text("22 April 2023"),
-                        trailing: Text("-Rp1000000.00"),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
+        body: SaldoEasypay(userData: _userData, riwayat: riwayat),
       ),
     );
   }
 }
 
 class SaldoEasypay extends StatelessWidget {
-  final double saldo;
+  final Map<String, dynamic>? userData;
   final List<Map<String, dynamic>> riwayat;
-  SaldoEasypay({required this.saldo, required this.riwayat});
+
+  SaldoEasypay({required this.userData, required this.riwayat});
+
   double getProportionateScreenWidth(double inputWidth, BuildContext context) {
-    // Ganti dengan logika penghitungan lebar proporsional yang sesuai
-    // misalnya: return inputWidth * 0.8;
     var screenWidth = MediaQuery.of(context).size.width;
     return (inputWidth / 375.0) * screenWidth;
   }
 
   @override
   Widget build(BuildContext context) {
+    final double saldo = userData?['easypayBalance']?.toDouble() ?? 0.0;
+
     return Container(
       padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 10.0),
       child: Column(
@@ -157,7 +127,7 @@ class SaldoEasypay extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  'Saldo Easypay anda',
+                  'Saldo Easypay',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: getProportionateScreenWidth(16, context),
@@ -166,7 +136,7 @@ class SaldoEasypay extends StatelessWidget {
                 ),
                 SizedBox(height: getProportionateScreenWidth(10, context)),
                 Text(
-                  'Rp. ${saldo.toString()}',
+                  'Rp. ${saldo.toStringAsFixed(2)}',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: getProportionateScreenWidth(20, context),
@@ -179,9 +149,9 @@ class SaldoEasypay extends StatelessWidget {
           SizedBox(height: getProportionateScreenWidth(20, context)),
           Expanded(
             child: ListView.builder(
-              itemCount: riwayat.length ?? 0,
+              itemCount: riwayat.length,
               itemBuilder: (BuildContext context, int index) {
-                Map<String, dynamic> transaksi = riwayat![index];
+                Map<String, dynamic> transaksi = riwayat[index];
                 return ListTile(
                   title: Text(transaksi['keterangan']),
                   subtitle: Text(transaksi['tanggal']),
