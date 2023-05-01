@@ -1,56 +1,58 @@
 import 'package:flutter/material.dart';
-import 'package:shopeasy/screens/isiapp/sales/registersales.dart';
 
-class HomeStorePage extends StatefulWidget {
-  final List<RegisterSales> stores;
-
-  HomeStorePage({required this.stores});
-
+class HomeStore extends StatefulWidget {
   @override
-  _HomeStorePageState createState() => _HomeStorePageState();
+  _HomeStoreState createState() => _HomeStoreState();
 }
 
-class _HomeStorePageState extends State<HomeStorePage> {
+class _HomeStoreState extends State<HomeStore> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Home Store'),
+        title: Text('HomeStore'),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.shopping_cart),
+            onPressed: () {
+              // Tambahkan aksi yang dijalankan ketika ikon keranjang belanja diklik
+            },
+          ),
+        ],
       ),
-      body: widget.stores.isEmpty
-          ? Center(
-              child: Text('You haven\'t registered any stores yet.'),
-            )
-          : ListView.builder(
-              itemCount: widget.stores.length,
-              itemBuilder: (context, index) {
-                final store = widget.stores[index];
-                return ListTile(
-                  leading: CircleAvatar(
-                    backgroundImage: store.image != null
-                        ? Image.file(store.image!)
-                        : Image.asset('assets/icon/usericon.png'),
-                    radius: 30,
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Expanded(
+            child: ListView(
+              children: [
+                Card(
+                  child: Column(
+                    children: [
+                      Image.network('https://example.com/product1.jpg'),
+                      Text('Product 1'),
+                      Text('Price: \$50'),
+                    ],
                   ),
-                  title: Text(store.name),
-                  subtitle: Text(store.description),
-                  trailing: Icon(Icons.arrow_forward),
-                  onTap: () {
-                    // Navigate to the store page with the selected store data
-                    Navigator.pushNamed(
-                      context,
-                      '/store',
-                      arguments: store,
-                    );
-                  },
-                );
-              },
+                ),
+                Card(
+                  child: Column(
+                    children: [
+                      Image.network('https://example.com/product2.jpg'),
+                      Text('Product 2'),
+                      Text('Price: \$75'),
+                    ],
+                  ),
+                ),
+              ],
             ),
+          ),
+        ],
+      ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
         onPressed: () {
-          // Navigate to the register store page
-          Navigator.pushNamed(context, '/register_store');
+          // Tambahkan aksi yang dijalankan ketika tombol tambah produk diklik
         },
       ),
     );
