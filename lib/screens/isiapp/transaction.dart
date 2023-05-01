@@ -11,14 +11,32 @@ class transaction extends StatefulWidget {
 
 class _PayPageState extends State<transaction> {
   // initialize user data
-  final double saldo = 500000.0;
-  final List<String> riwayat = [
-    "Penghasilan dari pekerjaan",
-    "Membeli bahan makanan",
-    "Penghasilan dari pekerjaan",
-    "Membayar tagihan listrik",
-    "Membeli tiket pesawat"
+  final double saldo = 1000000;
+  final List<Map<String, dynamic>> riwayat = [
+    {
+      "tanggal": "01/05/2023",
+      "jumlah": 10000,
+      "keterangan": "Pembayaran tagihan listrik"
+    },
+    {"tanggal": "02/05/2023", "jumlah": 50000, "keterangan": "Top up saldo"},
+    {"tanggal": "03/05/2023", "jumlah": 75000, "keterangan": "Pembelian pulsa"},
+    {
+      "tanggal": "04/05/2023",
+      "jumlah": 20000,
+      "keterangan": null // field keterangan bernilai null
+    },
+    {
+      "tanggal": "05/05/2023",
+      "jumlah": 100000,
+      "keterangan": "Pembelian barang"
+    },
   ];
+
+// menggunakan operator null-aware untuk mengecek apakah keterangan null atau tidak
+  String getKeterangan(Map<String, dynamic> item) {
+    return item["keterangan"] ?? "-";
+  }
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -56,6 +74,7 @@ class _PayPageState extends State<transaction> {
                 children: [
                   // Tabungan
                   SaldoEasypay(saldo: saldo, riwayat: riwayat),
+                  // Riwayat Transaksi
                   // Riwayat Transaksi
                   ListView(
                     children: [
@@ -101,18 +120,16 @@ class _PayPageState extends State<transaction> {
   }
 }
 
-double getProportionateScreenWidth(double inputWidth, BuildContext context) {
-  // Ganti dengan logika penghitungan lebar proporsional yang sesuai
-  // misalnya: return inputWidth * 0.8;
-  var screenWidth = MediaQuery.of(context).size.width;
-  return (inputWidth / 375.0) * screenWidth;
-}
-
 class SaldoEasypay extends StatelessWidget {
   final double saldo;
-  final List<String> riwayat;
-
+  final List<Map<String, dynamic>> riwayat;
   SaldoEasypay({required this.saldo, required this.riwayat});
+  double getProportionateScreenWidth(double inputWidth, BuildContext context) {
+    // Ganti dengan logika penghitungan lebar proporsional yang sesuai
+    // misalnya: return inputWidth * 0.8;
+    var screenWidth = MediaQuery.of(context).size.width;
+    return (inputWidth / 375.0) * screenWidth;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -132,7 +149,7 @@ class SaldoEasypay extends StatelessWidget {
               borderRadius: BorderRadius.circular(20),
             ),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
                   'Saldo Easypay',
@@ -157,12 +174,13 @@ class SaldoEasypay extends StatelessWidget {
           SizedBox(height: getProportionateScreenWidth(20, context)),
           Expanded(
             child: ListView.builder(
-              itemCount: riwayat.length,
+              itemCount: riwayat.length ?? 0,
               itemBuilder: (BuildContext context, int index) {
+                Map<String, dynamic> transaksi = riwayat![index];
                 return ListTile(
-                  title: Text(riwayat[index]),
-                  subtitle: Text("Tanggal transaksi"),
-                  trailing: Text("+/-Jumlah transaksi"),
+                  title: Text(transaksi['keterangan']),
+                  subtitle: Text(transaksi['tanggal']),
+                  trailing: Text(transaksi['jumlah']),
                 );
               },
             ),
