@@ -119,6 +119,8 @@ class AuthService {
     }
   }
 
+  //DATABASE OPERATIONS
+  //CREATE DOCUMENTS IN FIRESTORE
   //create user check
   Future userAndEmailIsDuplicate(
       {required String username, required String email}) async {
@@ -140,6 +142,29 @@ class AuthService {
         return false;
       } else {
         return true;
+      }
+    } catch (e) {
+      print(e.toString());
+      return null;
+    }
+  }
+
+  //check if user is in the database
+  Future userIsInDatabase({required String email}) async {
+    try {
+      //check if email already exists
+      final emailDuplicate = await FirebaseFirestore.instance
+          .collection('users')
+          .where('email', isEqualTo: email)
+          .get();
+
+      //return false if username or email already exists
+      if (emailDuplicate.docs.isNotEmpty) {
+        print('user is in database');
+        return true;
+      } else {
+        print('user is not in database');
+        return false;
       }
     } catch (e) {
       print(e.toString());
@@ -187,14 +212,11 @@ class AuthService {
   }
 
   //create random username
-  createRandomUsername() {
-    //use random
-    final random = Random();
-    //create random username
-    String username = 'user${createRandomNumber()}';
-    if (username.length > 15) {
-      username = username.substring(0, 15);
-    }
+  createUsernameFromEmail() {
+    //use email to create username
+    final user = FirebaseAuth.instance.currentUser!;
+    final email = user.email!;
+    final username = email.substring(0, email.indexOf('@'));
     return username;
   }
 
@@ -207,7 +229,7 @@ class AuthService {
 
       final json = {
         'userID': docUser.id,
-        'username': createRandomUsername(),
+        'username': createUsernameFromEmail(),
         'email': email,
         'easypayBalance': 0,
         'photoUrl': '',
@@ -232,7 +254,76 @@ class AuthService {
     }
   }
 
-  //get data from firestore using firebase auth user as input and return user data in json format or null if error occurs
+  //create seller document from user document
+  Future createSellerAccount(
+      {required User user,
+      required String sellerName,
+      required String sellerDesc}) async {
+    try {
+      //create user document in firestore
+      final docSeller = await FirebaseFirestore.instance
+          .collection('sellers')
+          .doc(user.uid)
+          .get();
+
+      final json = {
+        'shopID': user.uid,
+        'shopName': sellerName,
+        'shopBio': sellerDesc,
+        'shopProductsID': [],
+        'photoUrl': '',
+      };
+
+      //create seller document in firestore
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(user.uid)
+          .set(json);
+
+      print('create user firestore success');
+      return true;
+    } catch (e) {
+      print(e.toString());
+      return null;
+    }
+  }
+
+  // create product
+  Future createProduct(User user, String productName, String productDesc,
+      int productPrice, String productCategory, int productInventory) async {
+    try {
+      // create product document in firestore
+      final docProduct =
+          FirebaseFirestore.instance.collection('products').doc();
+      // create product json
+      final json = {
+        'productID': docProduct.id,
+        'sellerID': user.uid,
+        'productName': productName,
+        'productInfo': productDesc,
+        'productPrice': productPrice,
+        'productCategory': productCategory,
+        'photoUrl': [],
+        'productRating': [],
+        'productReviews': [],
+        'productInventory': productInventory,
+      };
+
+      await FirebaseFirestore.instance
+          .collection('products')
+          .doc(docProduct.id)
+          .set(json);
+
+      print('create product success');
+      return true;
+    } catch (e) {
+      print(e.toString());
+      return null;
+    }
+  }
+
+  //UPDATE AND GET DATA FROM FIRESTORE
+  //get data from firestore
   Future getUserData(User user) async {
     try {
       final docUser = await FirebaseFirestore.instance
@@ -272,89 +363,6 @@ class AuthService {
           .doc(user.uid)
           .update({field: value});
       return docUser;
-    } catch (e) {
-      print(e.toString());
-      return null;
-    }
-  }
-
-  //create seller document from user document
-  Future createSellerAccount(
-      {required User user,
-      required String sellerName,
-      required String sellerDesc}) async {
-    try {
-      //create user document in firestore
-      final docSeller = await FirebaseFirestore.instance
-          .collection('sellers')
-          .doc(user.uid)
-          .get();
-
-      final json = {
-        'shopID': docSeller.id,
-        'shopName': sellerName,
-        'shopBio': sellerDesc,
-        'shopProductsID': [],
-        'photoUrl': '',
-      };
-
-      await FirebaseFirestore.instance
-          .collection('users')
-          .doc(docSeller.id)
-          .set(json);
-
-      print('create user firestore success');
-      return true;
-    } catch (e) {
-      print(e.toString());
-      return null;
-    }
-  }
-
-  // create random number 15 characters long
-  String createRandomNumber() {
-    final random = Random();
-    String randomnumber = random.nextInt(10000).toString();
-    if (randomnumber.length > 15) {
-      randomnumber = randomnumber.substring(0, 15);
-    }
-    return randomnumber;
-  }
-
-  // create product id
-  String createProductID(String docID) {
-    String productID = '$docID+$createRandomNumber()';
-    return productID;
-  }
-
-  // create product
-  Future createProduct(User user, String productName, String productDesc,
-      int productPrice, String productCategory, int productInventory) async {
-    try {
-      // create product document in firestore
-      final docProduct =
-          FirebaseFirestore.instance.collection('products').doc();
-      // create product json
-      final json = {
-        'productID': createProductID(docProduct.id),
-        'sellerID': user.uid,
-        'productName': productName,
-        'productInfo': productDesc,
-        'productPrice': productPrice,
-        'productCategory': productCategory,
-        'photoUrl': [],
-        'productRating': [],
-        'productReviews': [],
-        'productInventory': productInventory,
-      };
-
-      await FirebaseFirestore.instance
-          .collection('products')
-          .doc(docProduct.id)
-          .set(json);
-
-      print('create product success');
-      return true;
     } catch (e) {
       print(e.toString());
       return null;
