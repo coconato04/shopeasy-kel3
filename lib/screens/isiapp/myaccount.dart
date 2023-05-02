@@ -1,7 +1,6 @@
 // ignore_for_file: camel_case_types
 
 import 'package:flutter/material.dart';
-import 'package:shopeasy/screens/isiapp/sales/salesmode.dart';
 import 'package:shopeasy/screens/isiapp/content/keamanan.dart';
 import 'package:shopeasy/screens/isiapp/content/profile.dart';
 import 'package:shopeasy/screens/isiapp/content/salesmode.dart';
