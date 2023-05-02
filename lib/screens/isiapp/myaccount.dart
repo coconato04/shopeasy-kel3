@@ -5,6 +5,7 @@ import 'package:shopeasy/screens/isiapp/content/keamanan.dart';
 import 'package:shopeasy/screens/isiapp/content/profile.dart';
 import 'package:shopeasy/screens/isiapp/content/salesmode.dart';
 import 'package:shopeasy/screens/isiapp/sales/homepagesales.dart';
+import 'package:shopeasy/screens/isiapp/sales/notificationpage.dart';
 import 'package:shopeasy/screens/isiapp/sales/registersales.dart';
 import 'package:shopeasy/screens/opening/logsig.dart';
 import 'package:shopeasy/services/auth.dart' as auth;
@@ -129,10 +130,10 @@ class myaccountState extends State<myaccount> {
                         leading: const Icon(Icons.notifications),
                         title: const Text('Notifikasi'),
                         onTap: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                  builder: (context) => NotificationPage()),
-                            );
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                                builder: (context) => NotificationPage()),
+                          );
                           // Aksi ketika opsi notifikasi di klik
                         },
                       ),
