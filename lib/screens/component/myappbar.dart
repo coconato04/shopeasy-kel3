@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:shopeasy/screens/component/rootappbar.dart';
 import 'package:shopeasy/screens/homescreen/homepage.dart';
 import 'package:shopeasy/screens/isiapp/content/shoppingcart.dart';
+import 'package:shopeasy/screens/isiapp/sales/notificationpage.dart';
 import 'package:shopeasy/screens/isiapp/search.dart';
 
 class myappbar extends StatelessWidget implements PreferredSizeWidget {
