@@ -129,6 +129,10 @@ class myaccountState extends State<myaccount> {
                         leading: const Icon(Icons.notifications),
                         title: const Text('Notifikasi'),
                         onTap: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                  builder: (context) => NotificationPage()),
+                            );
                           // Aksi ketika opsi notifikasi di klik
                         },
                       ),
