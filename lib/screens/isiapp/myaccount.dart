@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:shopeasy/screens/isiapp/content/keamanan.dart';
+import 'package:shopeasy/screens/isiapp/sales/kuponpage.dart';
 import 'package:shopeasy/screens/isiapp/content/profile.dart';
 import 'package:shopeasy/screens/isiapp/content/salesmode.dart';
 import 'package:shopeasy/screens/isiapp/sales/homepagesales.dart';
@@ -173,6 +174,10 @@ class myaccountState extends State<myaccount> {
                         leading: const Icon(Icons.discount),
                         title: const Text('kupon saya'),
                         onTap: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                                builder: (context) => kuponpage()),
+                          );
                           // Aksi ketika opsi riwayat belanja di klik
                         },
                       ),
