@@ -97,7 +97,11 @@ class myappbar extends StatelessWidget implements PreferredSizeWidget {
             padding: const EdgeInsets.only(right: 0),
             child: IconButton(
               icon: const Icon(Icons.notifications_none_outlined),
-              onPressed: onNotificationPressed,
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => NotificationPage()),
+                );
+              },
               color: iconColor,
             ),
           ),
