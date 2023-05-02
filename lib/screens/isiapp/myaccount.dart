@@ -5,6 +5,7 @@ import 'package:shopeasy/screens/isiapp/content/keamanan.dart';
 import 'package:shopeasy/screens/isiapp/content/profile.dart';
 import 'package:shopeasy/screens/isiapp/content/salesmode.dart';
 import 'package:shopeasy/screens/isiapp/sales/homepagesales.dart';
+import 'package:shopeasy/screens/isiapp/sales/keamananpage.dart';
 import 'package:shopeasy/screens/isiapp/sales/notificationpage.dart';
 import 'package:shopeasy/screens/isiapp/sales/registersales.dart';
 import 'package:shopeasy/screens/opening/logsig.dart';
@@ -150,7 +151,12 @@ class myaccountState extends State<myaccount> {
                       ListTile(
                         leading: const Icon(Icons.security),
                         title: const Text('Keamanan'),
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                                builder: (context) => keamananpage()),
+                          );
+                        },
                       ),
                       ListTile(
                         leading: const Icon(Icons.history),
