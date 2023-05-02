@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:shopeasy/screens/isiapp/content/keamanan.dart';
 import 'package:shopeasy/screens/isiapp/content/profile.dart';
-import 'package:shopeasy/screens/isiapp/content/salesmode.dart';
+import 'package:shopeasy/screens/isiapp/sales/salesmode.dart';
 import 'package:shopeasy/screens/isiapp/sales/homepagesales.dart';
 import 'package:shopeasy/screens/isiapp/sales/registersales.dart';
 import 'package:shopeasy/screens/opening/logsig.dart';

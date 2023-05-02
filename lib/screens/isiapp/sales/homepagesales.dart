@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:shopeasy/screens/isiapp/content/salesmode.dart';
+import 'package:shopeasy/screens/isiapp/sales/salesmode.dart';
 
 class HomeStore extends StatefulWidget {
   @override
