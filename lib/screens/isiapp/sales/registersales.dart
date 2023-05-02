@@ -49,6 +49,7 @@ class _RegisterStorePageState extends State<RegisterSales> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.grey.shade500,
         title: Text('Register Store'),
       ),
       body: Padding(
