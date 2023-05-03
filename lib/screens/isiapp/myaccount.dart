@@ -2,12 +2,12 @@
 
 import 'package:flutter/material.dart';
 import 'package:shopeasy/screens/isiapp/content/keamanan.dart';
-import 'package:shopeasy/screens/isiapp/sales/kuponpage.dart';
+import 'package:shopeasy/screens/isiapp/content/kuponpage.dart';
 import 'package:shopeasy/screens/isiapp/content/profile.dart';
 import 'package:shopeasy/screens/isiapp/content/salesmode.dart';
 import 'package:shopeasy/screens/isiapp/sales/homepagesales.dart';
-import 'package:shopeasy/screens/isiapp/sales/keamananpage.dart';
-import 'package:shopeasy/screens/isiapp/sales/notificationpage.dart';
+import 'package:shopeasy/screens/isiapp/content/keamananpage.dart';
+import 'package:shopeasy/screens/isiapp/content/notificationpage.dart';
 import 'package:shopeasy/screens/isiapp/sales/registersales.dart';
 import 'package:shopeasy/screens/opening/logsig.dart';
 import 'package:shopeasy/services/auth.dart' as auth;
