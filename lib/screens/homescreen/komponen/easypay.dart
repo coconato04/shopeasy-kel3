@@ -3,6 +3,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:shopeasy/screens/component/rootappbar.dart';
+import 'package:shopeasy/screens/isiapp/content/kuponpage.dart';
 import 'package:shopeasy/screens/isiapp/transaction.dart';
 import 'package:shopeasy/services/auth.dart' as auth;
 
@@ -127,33 +128,54 @@ class easypayState extends State<easypay> {
               ),
               SizedBox(width: getProportionateScreenWidth(20, context)),
               Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Rewards',
-                      style: TextStyle(
-                        fontSize: getProportionateScreenWidth(15, context),
-                        fontWeight: FontWeight.bold,
+                child: Ink(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.5),
+                        spreadRadius: 2,
+                        blurRadius: 5,
+                        offset: Offset(0, 3),
                       ),
+                    ],
+                  ),
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => kuponpage()),
+                      );
+                    },
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Rewards',
+                          style: TextStyle(
+                            fontSize: getProportionateScreenWidth(15, context),
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Text(
+                          'Platinum Member',
+                          style: TextStyle(
+                            fontSize: getProportionateScreenWidth(15, context),
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Text(
+                          '9+ new coupons',
+                          style: TextStyle(
+                            fontSize: getProportionateScreenWidth(11, context),
+                          ),
+                        ),
+                      ],
                     ),
-                    Text(
-                      'Platinum Member',
-                      style: TextStyle(
-                        fontSize: getProportionateScreenWidth(15, context),
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Text(
-                      '9+ new coupons',
-                      style: TextStyle(
-                        fontSize: getProportionateScreenWidth(11, context),
-                      ),
-                    ),
-                  ],
+                  ),
                 ),
               ),
             ],
