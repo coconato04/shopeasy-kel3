@@ -45,7 +45,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
   Future<void> saveUserData(String newValue, String field) async {
     User? user = FirebaseAuth.instance.currentUser;
     if (user != null) {
-      final userData = await auth.AuthService().updateUserData(
+      final userData = await auth.AuthService().updateData(
           user: user, collection: "users", field: field, value: newValue);
     }
   }
