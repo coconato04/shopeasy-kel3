@@ -352,7 +352,7 @@ class AuthService {
   }
 
   //update user data in firestore
-  Future updateUserData(
+  Future updateData(
       {required User user,
       required String collection,
       required String field,
