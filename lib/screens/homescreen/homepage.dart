@@ -174,7 +174,7 @@ class barisan extends StatelessWidget {
                       height: 10,
                     ),
                     const Text(
-                      'Nama 1',
+                      'burberry',
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
@@ -182,7 +182,7 @@ class barisan extends StatelessWidget {
                       ),
                     ),
                     const Text(
-                      'Harga 1',
+                      '40.99',
                       style: TextStyle(
                         fontSize: 14,
                         color: Colors.black, // Ubah warna teks menjadi putih
@@ -218,7 +218,7 @@ class barisan extends StatelessWidget {
                       height: 10,
                     ),
                     const Text(
-                      'Nama 2',
+                      'album',
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
@@ -226,7 +226,7 @@ class barisan extends StatelessWidget {
                       ),
                     ),
                     const Text(
-                      'Harga 2',
+                      '40.99',
                       style: TextStyle(
                         fontSize: 14,
                         color: Colors.black, // Ubah warna teks menjadi putih
@@ -309,7 +309,7 @@ class barisan extends StatelessWidget {
                     height: 10,
                   ),
                   const Text(
-                    'Nama 4',
+                    'colgate',
                     style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
@@ -317,7 +317,7 @@ class barisan extends StatelessWidget {
                     ),
                   ),
                   const Text(
-                    'Harga 4',
+                    '12.99',
                     style: TextStyle(
                       fontSize: 14,
                       color: Colors.black,
