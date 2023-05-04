@@ -89,7 +89,7 @@ class myaccountState extends State<myaccount> {
                   // Bagian Profil
                   CircleAvatar(
                     radius: 40.0,
-                    backgroundImage: _photoUrl != null
+                    backgroundImage: _photoUrl != Null
                         ? NetworkImage(_photoUrl!) as ImageProvider<Object>?
                         : AssetImage('assets/icon/Whiskas.png')
                             as ImageProvider<Object>?,
