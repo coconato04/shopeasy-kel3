@@ -256,18 +256,18 @@ class AuthService {
 
   //create seller document from user document
   Future createSellerAccount(
-      {required User user,
+      {required String userID,
       required String sellerName,
       required String sellerDesc}) async {
     try {
       //create user document in firestore
       final docSeller = await FirebaseFirestore.instance
           .collection('sellers')
-          .doc(user.uid)
+          .doc(userID)
           .get();
 
       final json = {
-        'shopID': user.uid,
+        'shopID': userID,
         'shopName': sellerName,
         'shopBio': sellerDesc,
         'shopProductsID': [],
@@ -277,7 +277,7 @@ class AuthService {
       //create seller document in firestore
       await FirebaseFirestore.instance
           .collection('users')
-          .doc(user.uid)
+          .doc(userID)
           .set(json);
 
       print('create user firestore success');
@@ -338,12 +338,13 @@ class AuthService {
   }
 
   // get data from firestore using firebase user as input
-  Future getData({required User user, required String collection}) async {
+  Future getData(User user, String collection) async {
     try {
       final docUser = await FirebaseFirestore.instance
           .collection(collection)
           .doc(user.uid)
           .get();
+      print(user.uid);
       return docUser.data();
     } catch (e) {
       print(e.toString());
@@ -352,17 +353,26 @@ class AuthService {
   }
 
   //update user data in firestore
-  Future updateData(
-      {required User user,
-      required String collection,
-      required String field,
-      required String value}) async {
+  Future updateData(User user, String collection, String field, value) async {
     try {
       final docUser = await FirebaseFirestore.instance
           .collection(collection)
           .doc(user.uid)
           .update({field: value});
       return docUser;
+    } catch (e) {
+      print(e.toString());
+      return null;
+    }
+  }
+
+  Future isSeller(User user) async {
+    try {
+      final docUser = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(user.uid)
+          .get();
+      return docUser.data()!['isSeller'];
     } catch (e) {
       print(e.toString());
       return null;

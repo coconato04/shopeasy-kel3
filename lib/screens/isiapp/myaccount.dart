@@ -65,6 +65,15 @@ class myaccountState extends State<myaccount> {
   String? get createdAt => _userData?['createdAt'];
   String? _photoUrl;
 
+  Future isSeller(User user) async {
+    try {
+      return await auth.AuthService().isSeller(user);
+    } catch (e) {
+      print(e.toString());
+      return null;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -143,10 +152,18 @@ class myaccountState extends State<myaccount> {
                         leading: const Icon(Icons.home_work),
                         title: const Text('toko anda'),
                         onTap: () {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                                builder: (context) => RegisterSales()),
-                          );
+                          User? user = FirebaseAuth.instance.currentUser;
+                          if (auth.AuthService().isSeller(user!) == false) {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                  builder: (context) => RegisterSales()),
+                            );
+                          } else {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                  builder: (context) => HomeStore()),
+                            );
+                          }
                         },
                       ),
                       ListTile(

@@ -1,5 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:shopeasy/screens/isiapp/content/salesmode.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:shopeasy/services/auth.dart' as auth;
 
 class HomeStore extends StatefulWidget {
   @override
@@ -7,16 +10,59 @@ class HomeStore extends StatefulWidget {
 }
 
 class _HomeStoreState extends State<HomeStore> {
+  Map<String, dynamic>? _storeData;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadUserData();
+  }
+
+  Future<void> _loadUserData() async {
+    User? user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      final storeData = await auth.AuthService().getData(user, "sellers");
+      setState(() {
+        _storeData = storeData;
+      });
+    }
+  }
+
+//getters and setters
+  String? get userID => _storeData?['shopID'];
+  String? get shopname => _storeData?['shopName'];
+  String? get shopBio => _storeData?['shopBio'];
+  List<dynamic>? get photoUrl => _storeData?['photoUrl'];
+  List<dynamic>? get shopProductsID => _storeData?['shopProductsID'];
+
+  Future<List<List<dynamic>>> listProducts(List<dynamic>? shopProducts) async {
+    List<List<dynamic>> products = [];
+    if (shopProducts != null) {
+      for (var i = 0; i < shopProducts.length; i++) {
+        String a = shopProducts[i];
+        final productData = await FirebaseFirestore.instance
+            .collection('products')
+            .doc(a as String?)
+            .get();
+        if (productData.exists) {
+          products.add(productData.data()!.values.toList());
+          print(products);
+        }
+      }
+    }
+    return products;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('HomeStore'),
+        title: Text("Toko Anda"),
         actions: [
           IconButton(
-            icon: Icon(Icons.shopping_cart),
+            icon: const Icon(Icons.shopping_cart),
             onPressed: () {
-              // Tambahkan aksi yang dijalankan ketika ikon keranjang belanja diklik
+// Tambahkan aksi yang dijalankan ketika ikon keranjang belanja diklik
             },
           ),
         ],
@@ -36,13 +82,14 @@ class _HomeStoreState extends State<HomeStore> {
                   ),
                   SizedBox(height: 8),
                   Text(
-                    'Nama Toko',
+                    shopname ?? 'Nama Toko',
                     style: TextStyle(fontSize: 24),
                   ),
                   SizedBox(height: 8),
                   Text(
-                    'Tipe Toko',
+                    shopBio ?? '',
                     style: TextStyle(fontSize: 18),
+                    textAlign: TextAlign.center,
                   ),
                 ],
               ),
@@ -52,121 +99,64 @@ class _HomeStoreState extends State<HomeStore> {
               color: Colors.black,
             ),
             const SizedBox(height: 25),
-            ListView(
-              shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
-              children: [
-                Row(
-                  children: [
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.only(
-                            right: 10,
-                            left: 15), // Ubah padding sisi kiri di sini
-                        child: Container(
-                          width: double.infinity,
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 10, vertical: 16),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            color: Colors.grey
-                                .shade300, // Ubah warna container menjadi hitam
-                            border: Border.all(color: Colors.black, width: 2),
-                          ),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Image.asset(
-                                'assets/icon/burberry.png', // Ganti dengan path gambar yang sesuai
-                                height: 120,
-                                width: 120,
-                              ),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              const Text(
-                                'Nama 1',
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors
-                                      .black, // Ubah warna teks menjadi putih
-                                ),
-                              ),
-                              const Text(
-                                'Harga 1',
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  color: Colors
-                                      .black, // Ubah warna teks menjadi putih
-                                ),
-                              ),
-                            ],
+            FutureBuilder(
+              future: listProducts(shopProductsID),
+              builder: (context, AsyncSnapshot<List<List<dynamic>>> snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return Center(child: CircularProgressIndicator());
+                }
+                if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                  return Center(child: Text('Toko tidak memiliki produk'));
+                }
+                List<List<dynamic>> products = snapshot.data!;
+                return ListView.builder(
+                  shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
+                  itemCount: products.length,
+                  itemBuilder: (context, index) {
+                    return Row(
+                      children: [
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 16, vertical: 8),
+                            child: Text(
+                              products[index][6].toString(), // product name
+                              style: TextStyle(fontSize: 20),
+                            ),
                           ),
                         ),
-                      ),
-                    ),
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.only(right: 15, left: 5),
-                        child: Container(
-                          width: double.infinity,
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 10, vertical: 16),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            color: Colors.grey
-                                .shade300, // Ubah warna container menjadi hitam
-                            border: Border.all(color: Colors.black, width: 2),
-                          ),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Image.asset(
-                                'assets/icon/her loss.png', // Ganti dengan path gambar yang sesuai
-                                height: 120,
-                                width: 120,
-                              ),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              const Text(
-                                'Nama 2',
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors
-                                      .black, // Ubah warna teks menjadi putih
-                                ),
-                              ),
-                              const Text(
-                                'Harga 2',
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  color: Colors
-                                      .black, // Ubah warna teks menjadi putih
-                                ),
-                              ),
-                            ],
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 16, vertical: 8),
+                            child: Text(
+                              'Rp ${products[index][7].toString()}', // product price
+                              style: TextStyle(fontSize: 20),
+                              textAlign: TextAlign.right,
+                            ),
                           ),
                         ),
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 15),
-              ],
+                      ],
+                    );
+                  },
+                );
+              },
+            ),
+            const SizedBox(height: 25),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: ElevatedButton(
+                child: Text('Tambahkan Produk'),
+                onPressed: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => SalesPage(),
+                  ));
+                },
+              ),
             ),
           ],
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
-        onPressed: () {
-          Navigator.of(context).push(
-            MaterialPageRoute(builder: (context) => SalesPage()),
-          );
-        },
       ),
     );
   }

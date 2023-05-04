@@ -1,6 +1,8 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:shopeasy/services/auth.dart' as auth;
+import 'package:firebase_auth/firebase_auth.dart';
 
 class RegisterSales extends StatefulWidget {
   @override
@@ -25,19 +27,26 @@ class _RegisterStorePageState extends State<RegisterSales> {
     });
   }
 
-  void _registerStore() {
+  void _registerStore() async {
     if (_storeName.isEmpty ||
         _storeDescription.isEmpty ||
-        _storeCategory == null ||
-        _storeImage == null) {
+        _storeCategory == null) {
+      //_storeImage == null
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
+        const SnackBar(
           content: Text('Please fill in all the fields'),
           duration: Duration(seconds: 3),
         ),
       );
     } else {
-      // Do the registration logic here, e.g. store the data to database
+      // Store the data to database
+      User? user = FirebaseAuth.instance.currentUser;
+      String userID = user!.uid;
+      await auth.AuthService().createSellerAccount(
+          userID: userID,
+          sellerName: _storeName,
+          sellerDesc: _storeDescription);
+      await auth.AuthService().updateData(user, "users", "isSeller", true);
       // Then, navigate to the store page
       Navigator.pop(context);
       // Replace 'StorePage' with the actual page name for the store

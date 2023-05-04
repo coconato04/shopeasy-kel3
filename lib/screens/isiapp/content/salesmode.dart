@@ -18,6 +18,9 @@ class _HomeSalesPageState extends State<SalesPage> {
   File? _imageFile;
   String _itemName = '';
   String _itemDescription = '';
+  String _itemCategory = '';
+  int _itemPrice = 0;
+  int _itemStock = 0;
 
   Future<void> _pickImage(ImageSource source) async {
     final pickedFile = await ImagePicker().getImage(source: source);
@@ -37,21 +40,33 @@ class _HomeSalesPageState extends State<SalesPage> {
 
   Future<void> _addItem() async {
     final User? user = _auth.currentUser;
-    final String imageUrl = await _uploadImage();
-    await _db.collection('items').add({
-      'name': _itemName,
-      'description': _itemDescription,
-      'imageUrl': imageUrl,
-      'userId': user?.uid ?? '',
-      'createdAt': FieldValue.serverTimestamp(),
+
+    // add to database
+    //final String photoUrl = await _uploadImage();
+    final DocumentReference documentReference =
+        _db.collection('products').doc();
+    final String itemId = documentReference.id;
+    await documentReference.set({
+      'productName': _itemName,
+      'productInfo': _itemDescription,
+      'productCategory': _itemCategory,
+      'productPrice': _itemPrice,
+      'productInventory': _itemStock,
+      'photoUrl': '', //photoUrl,
+      'productID': itemId,
+      'sellerID': user!.uid,
+      'productRating': [],
+      'productReviews': [],
     });
-    setState(() {
-      if (_imageFile != null) {
-        _imageFile = null;
-      }
-      _itemName = '';
-      _itemDescription = '';
+
+    // add to seller's product list
+    final DocumentReference sellerReference =
+        _db.collection('sellers').doc(user.uid);
+    await sellerReference.update({
+      'shopProductsID': FieldValue.arrayUnion([itemId]),
     });
+
+    print('item added');
   }
 
   @override
@@ -95,9 +110,38 @@ class _HomeSalesPageState extends State<SalesPage> {
                 });
               },
             ),
+            TextFormField(
+              decoration: InputDecoration(labelText: 'Kategori Barang'),
+              onChanged: (value) {
+                setState(() {
+                  _itemCategory = value;
+                });
+              },
+            ),
+            TextFormField(
+              keyboardType: TextInputType.number,
+              decoration: InputDecoration(labelText: 'Harga Barang'),
+              onChanged: (value) {
+                setState(() {
+                  _itemPrice = int.parse(value);
+                });
+              },
+            ),
+            TextFormField(
+              keyboardType: TextInputType.number,
+              decoration: InputDecoration(labelText: 'Stok Barang'),
+              onChanged: (value) {
+                setState(() {
+                  _itemStock = int.parse(value);
+                });
+              },
+            ),
             ElevatedButton(
               child: Text('Tambahkan Barang'),
-              onPressed: _addItem,
+              onPressed: () {
+                _addItem();
+                Navigator.pop(context);
+              },
             ),
           ],
         ),
