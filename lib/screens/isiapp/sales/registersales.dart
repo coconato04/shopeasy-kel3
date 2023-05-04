@@ -49,8 +49,6 @@ class _RegisterStorePageState extends State<RegisterSales> {
       await auth.AuthService().updateData(user, "users", "isSeller", true);
       // Then, navigate to the store page
       Navigator.pop(context);
-      // Replace 'StorePage' with the actual page name for the store
-      Navigator.pushNamed(context, '/store');
     }
   }
 

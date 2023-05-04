@@ -266,6 +266,7 @@ class AuthService {
           .doc(userID)
           .get();
 
+      //data
       final json = {
         'shopID': userID,
         'shopName': sellerName,
@@ -274,9 +275,9 @@ class AuthService {
         'photoUrl': '',
       };
 
-      //create seller document in firestore
+      //update seller document in firestore
       await FirebaseFirestore.instance
-          .collection('users')
+          .collection('sellers')
           .doc(userID)
           .set(json);
 
@@ -368,10 +369,12 @@ class AuthService {
 
   Future isSeller(User user) async {
     try {
+      //return data of isSeller field
       final docUser = await FirebaseFirestore.instance
           .collection('users')
           .doc(user.uid)
           .get();
+      print(docUser.data()!['isSeller']);
       return docUser.data()!['isSeller'];
     } catch (e) {
       print(e.toString());

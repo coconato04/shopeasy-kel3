@@ -1,5 +1,7 @@
 // ignore_for_file: camel_case_types
 
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:shopeasy/screens/isiapp/content/keamanan.dart';
 import 'package:shopeasy/screens/isiapp/content/kuponpage.dart';
@@ -27,6 +29,7 @@ class myaccountState extends State<myaccount> {
   void initState() {
     super.initState();
     _loadUserData();
+    isSeller();
     _photoUrl = 'assets/icon/Whiskas.png';
   }
 
@@ -64,10 +67,12 @@ class myaccountState extends State<myaccount> {
   String? get photoUrl => _userData?['photoUrl'];
   String? get createdAt => _userData?['createdAt'];
   String? _photoUrl;
+  bool _isSeller = false;
 
-  Future isSeller(User user) async {
+  Future isSeller() async {
     try {
-      return await auth.AuthService().isSeller(user);
+      User? user = FirebaseAuth.instance.currentUser;
+      _isSeller = await auth.AuthService().isSeller(user!);
     } catch (e) {
       print(e.toString());
       return null;
@@ -153,7 +158,7 @@ class myaccountState extends State<myaccount> {
                         title: const Text('toko anda'),
                         onTap: () {
                           User? user = FirebaseAuth.instance.currentUser;
-                          if (auth.AuthService().isSeller(user!) == false) {
+                          if (_isSeller == false) {
                             Navigator.of(context).push(
                               MaterialPageRoute(
                                   builder: (context) => RegisterSales()),
