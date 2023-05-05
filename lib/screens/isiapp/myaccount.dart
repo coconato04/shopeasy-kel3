@@ -185,10 +185,10 @@ class myaccountState extends State<myaccount> {
                         leading: const Icon(Icons.history),
                         title: const Text('Riwayat Belanja'),
                         onTap: () {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                                builder: (context) => HomeStore()),
-                          );
+                          // Navigator.of(context).push(
+                          //   MaterialPageRoute(
+                          //       builder: (context) => HomeStore()),
+                          // );
                           // Aksi ketika opsi riwayat belanja di klik
                         },
                       ),
