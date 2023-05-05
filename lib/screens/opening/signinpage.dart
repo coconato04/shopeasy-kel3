@@ -145,6 +145,12 @@ class signinpage extends StatelessWidget {
                         print('Error Logging In');
                         print(
                             "${emailController.text} ${passwordController.text}"); //TODO: for debugging purpose only. remove this
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content:
+                                Text('Error logging in. Please try again.'),
+                          ),
+                        );
                       } else {
                         print('Login Success');
                         print(
@@ -163,6 +169,11 @@ class signinpage extends StatelessWidget {
                         Navigator.of(context).push(
                           MaterialPageRoute(
                               builder: (context) => const rootappbar()),
+                        );
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text('Login Success!'),
+                          ),
                         );
                       }
                     }
@@ -196,6 +207,11 @@ class signinpage extends StatelessWidget {
                     dynamic result = await _auth.signInWithGoogle();
                     if (result == null) {
                       print('Error Logging In');
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text('Error logging in. Please try again.'),
+                        ),
+                      );
                     } else {
                       print('Login Success');
                       print(
@@ -206,6 +222,11 @@ class signinpage extends StatelessWidget {
                       );
                       Navigator.of(context).push(
                         MaterialPageRoute(builder: (context) => rootappbar()),
+                      );
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text('Login Success!'),
+                        ),
                       );
                     }
                   },

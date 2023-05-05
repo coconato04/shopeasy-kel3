@@ -131,6 +131,12 @@ class signuppage extends StatelessWidget {
                           print('Registration Error');
                           print(
                               "${emailController.text} ${passwordController.text}"); //TODO: for debugging purpose only. remove this
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content:
+                                  Text('Registration Error. Please try again.'),
+                            ),
+                          );
                         } else {
                           print('Registration Success');
                           print(
@@ -144,11 +150,22 @@ class signuppage extends StatelessWidget {
                             MaterialPageRoute(
                                 builder: (context) => signinpage()),
                           );
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text(
+                                  'Registration Success. Please verify your email before signing in.'),
+                            ),
+                          );
                         }
                       } else {
                         print(
                             'Password does not match: ${passwordController.text} ${verifyPasswordController.text}');
-                        //TODO: add dialog box to notify user that password does not match
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text(
+                                'Password does not match. Please try again.'),
+                          ),
+                        );
                       }
                     }
                   },

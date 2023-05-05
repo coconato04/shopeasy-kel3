@@ -33,9 +33,18 @@ class LogsigState extends State<logsig> {
       Navigator.of(context).push(
         MaterialPageRoute(builder: (context) => const rootappbar()),
       );
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Welcome back!'),
+        ),
+      );
     } else {
       print('User is not logged in');
-      //TODO: widget to show user is "not logged in"
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Please login first!'),
+        ),
+      );
     }
   }
 
