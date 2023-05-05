@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:shopeasy/screens/isiapp/content/keamanan.dart';
 import 'package:shopeasy/screens/isiapp/content/kuponpage.dart';
 import 'package:shopeasy/screens/isiapp/content/profile.dart';
+import 'package:shopeasy/screens/isiapp/content/riwayatbelanja.dart';
 import 'package:shopeasy/screens/isiapp/content/salesmode.dart';
 import 'package:shopeasy/screens/isiapp/sales/homepagesales.dart';
 import 'package:shopeasy/screens/isiapp/content/keamananpage.dart';
@@ -185,11 +186,10 @@ class myaccountState extends State<myaccount> {
                         leading: const Icon(Icons.history),
                         title: const Text('Riwayat Belanja'),
                         onTap: () {
-                          // Navigator.of(context).push(
-                          //   MaterialPageRoute(
-                          //       builder: (context) => HomeStore()),
-                          // );
-                          // Aksi ketika opsi riwayat belanja di klik
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                                builder: (context) => PurchaseHistoryPage1()),
+                          );
                         },
                       ),
                       ListTile(
