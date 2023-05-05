@@ -67,6 +67,11 @@ class _HomeSalesPageState extends State<SalesPage> {
     });
 
     print('item added');
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text('Barang berhasil ditambahkan.'),
+      ),
+    );
   }
 
   @override

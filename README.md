@@ -6,10 +6,8 @@ A "Marketplace" themed Flutter project by Kelompok 3. Insert flavor text here.
 
 Backend used: Firebase  
 Database: Firestore  
-  
-"I broke the main branch" - Sun Tzu  
 
-## Changes
+## Backend
 - Register with email and password + email verification  
 - Login with email and password  
 - Login with Google  
@@ -18,14 +16,8 @@ Database: Firestore
 - Blocks back button at home page  
 - Signout  
 - Forgot password  
-- Resend Email Verification (AuthService code is there but not tested, needs UI)
 - User database with Firestore
-
-## Current Errors/To-Do List
-- UI pop-ups for messages (login failed, need verification, etc)
-- Store user profile
-- Store shop profile
-- Store product information
-- Forget Password (need UI)
-- Resend email verification (need UI)
-- Pollution of logs when inputting text through physical keyboard (low priority)
+- Create shop
+- Add products to shop
+- Search for products
+- ~~Resend Email Verification (No UI)~~

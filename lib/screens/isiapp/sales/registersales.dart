@@ -49,6 +49,11 @@ class _RegisterStorePageState extends State<RegisterSales> {
       await auth.AuthService().updateData(user, "users", "isSeller", true);
       // Then, navigate to the store page
       Navigator.pop(context);
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Sedang diproses, mohon tunggu sebentar.'),
+        ),
+      );
     }
   }
 

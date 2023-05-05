@@ -88,6 +88,11 @@ class _forgotpasswordpageState extends State<forgotpasswordpage> {
                   onPressed: () async {
                     await auth.AuthService()
                         .resetPassword(emailController.text);
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text('Password reset email sent'),
+                      ),
+                    );
                     Navigator.of(context).push(
                       MaterialPageRoute(builder: (context) => const logsig()),
                     );

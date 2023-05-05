@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:shopeasy/services/auth.dart' as auth;
 
 void main() {
   runApp(keamananpage());
@@ -7,67 +9,96 @@ void main() {
 class keamananpage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       home: ProfilePage(),
     );
   }
 }
 
 class ProfilePage extends StatefulWidget {
+  const ProfilePage({super.key});
+
   @override
   _ProfilePageState createState() => _ProfilePageState();
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  String _username = 'Ini namanya nanti di sync sama backend';
-  String _email = 'email@example.com';
-  String _phone = '123-456-7890';
-  String _password = '********';
+  Map<String, dynamic>? _userData;
+
+  @override
+  initState() {
+    super.initState();
+    loadUserData();
+  }
+
+  Future<void> loadUserData() async {
+    User? user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      final userData = await auth.AuthService().getUserData(user);
+      setState(() {
+        _userData = userData;
+      });
+    }
+  }
+
+  String get _username => _userData?['username'] ?? 'User';
+  String? get _email => _userData?['email'] ?? 'user@example.com';
+  final String _phone = '123-456-7890';
+  final String _password = '********';
+
+  Future<void> resetPassword() async {
+    await auth.AuthService().resetPassword(_email!);
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text('Password reset email sent'),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.grey.shade500,
-        title: Text(
+        title: const Text(
           'Keamanan',
           style: TextStyle(color: Colors.white),
         ),
       ),
       body: Padding(
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            SizedBox(height: 20),
-            Text(
+            const SizedBox(height: 20),
+            const Text(
               'Username',
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
             Text(
               _username,
-              style: TextStyle(fontSize: 16),
+              style: const TextStyle(fontSize: 16),
             ),
-            SizedBox(height: 20),
-            Text(
+            const SizedBox(height: 20),
+            const Text(
               'Email',
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
             Text(
-              _email,
-              style: TextStyle(fontSize: 16),
+              '$_email',
+              style: const TextStyle(fontSize: 16),
             ),
-            SizedBox(height: 20),
-            Text(
+            const SizedBox(height: 20),
+            const Text(
               'Phone',
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
             Text(
               _phone,
-              style: TextStyle(fontSize: 16),
+              style: const TextStyle(fontSize: 16),
             ),
-            SizedBox(height: 20),
-            Text(
+            const SizedBox(height: 20),
+            const Text(
               'Password',
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
@@ -76,13 +107,14 @@ class _ProfilePageState extends State<ProfilePage> {
               children: [
                 Text(
                   _password,
-                  style: TextStyle(fontSize: 16),
+                  style: const TextStyle(fontSize: 16),
                 ),
                 TextButton(
                   onPressed: () {
                     // Implement password change logic
+                    resetPassword();
                   },
-                  child: Text(
+                  child: const Text(
                     'Change Password',
                     style: TextStyle(fontSize: 16, color: Colors.blue),
                   ),

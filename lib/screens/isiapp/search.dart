@@ -1,40 +1,35 @@
 import 'package:flutter/material.dart';
-
+import 'package:shopeasy/services/SearchService.dart';
 import '../component/rootappbar.dart';
 
 class Search extends StatefulWidget {
-  const Search({super.key});
+  const Search({Key? key}) : super(key: key);
 
   @override
-  SearchState createState() => SearchState();
+  _SearchState createState() => _SearchState();
 }
 
-class SearchState extends State<Search> {
-  // ignore: prefer_final_fields
-  TextEditingController _searchController = TextEditingController();
-  List<String> _searchResults = [];
+class _SearchState extends State<Search> {
+  final TextEditingController _searchController = TextEditingController();
+  List<List<dynamic>> _searchResults = [];
 
-  void _onSearchTextChanged(String value) {
-    setState(() {
-      _searchResults = _performSearch(value);
-    });
-  }
-
-  List<String> _performSearch(String value) {
-    // Implementasi logika pencarian di sini, misalnya mengambil data dari API atau database
-    // dan mengembalikan hasil pencarian dalam bentuk List<String>
-    List<String> results = [];
-    // Contoh hasil pencarian statis
+  void _onSearchTextChanged(String value) async {
     if (value.isNotEmpty) {
-      for (int i = 1; i <= 10; i++) {
-        results.add("Hasil Pencarian $i untuk '$value'");
-      }
+      List<List<dynamic>> results = await SearchService().searchProducts(value);
+      print(
+          'Search results: ${results.toString()}'); // Add this line to print search results
+      setState(() {
+        _searchResults = results;
+      });
+    } else {
+      setState(() {
+        _searchResults = [];
+      });
     }
-    return results;
   }
 
   void _onCancelPressed() {
-    Navigator.pop(context); // Kembali ke halaman sebelumnya
+    Navigator.pop(context);
     Navigator.of(context).push(
       MaterialPageRoute(builder: (context) => const rootappbar()),
     );
@@ -66,7 +61,7 @@ class SearchState extends State<Search> {
               itemCount: _searchResults.length,
               itemBuilder: (BuildContext context, int index) {
                 return ListTile(
-                  title: Text(_searchResults[index]),
+                  title: Text(_searchResults[index][0].toString()),
                   onTap: () {
                     // Implementasi aksi saat item di klik
                     // Misalnya, menampilkan detail item atau melakukan navigasi ke halaman detail

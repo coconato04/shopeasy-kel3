@@ -3,7 +3,6 @@
 import 'dart:ffi';
 
 import 'package:flutter/material.dart';
-import 'package:shopeasy/screens/isiapp/content/keamanan.dart';
 import 'package:shopeasy/screens/isiapp/content/kuponpage.dart';
 import 'package:shopeasy/screens/isiapp/content/profile.dart';
 import 'package:shopeasy/screens/isiapp/content/riwayatbelanja.dart';
