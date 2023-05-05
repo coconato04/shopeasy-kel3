@@ -30,6 +30,9 @@ class _SearchState extends State<Search> {
 
   void _onCancelPressed() {
     Navigator.pop(context);
+    Navigator.of(context).push(
+      MaterialPageRoute(builder: (context) => const rootappbar()),
+    );
   }
 
   @override
