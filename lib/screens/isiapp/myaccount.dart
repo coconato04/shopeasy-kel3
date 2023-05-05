@@ -155,7 +155,7 @@ class myaccountState extends State<myaccount> {
                       ),
                       ListTile(
                         leading: const Icon(Icons.home_work),
-                        title: const Text('toko anda'),
+                        title: const Text('Toko Saya'),
                         onTap: () {
                           User? user = FirebaseAuth.instance.currentUser;
                           if (_isSeller == false) {
@@ -194,7 +194,7 @@ class myaccountState extends State<myaccount> {
                       ),
                       ListTile(
                         leading: const Icon(Icons.discount),
-                        title: const Text('kupon saya'),
+                        title: const Text('Kupon Saya'),
                         onTap: () {
                           Navigator.of(context).push(
                             MaterialPageRoute(

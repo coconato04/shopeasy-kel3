@@ -57,7 +57,7 @@ class _HomeStoreState extends State<HomeStore> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Toko Anda"),
+        title: Text("Toko Saya"),
         actions: [
           IconButton(
             icon: const Icon(Icons.shopping_cart),
