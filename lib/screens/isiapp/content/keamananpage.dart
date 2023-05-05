@@ -41,9 +41,7 @@ class _ProfilePageState extends State<ProfilePage> {
     }
   }
 
-  String get _username =>
-      _userData?['username'] ??
-      'If you\'re seeing this, something went wrong :)';
+  String get _username => _userData?['username'] ?? 'User';
   String? get _email => _userData?['email'] ?? 'user@example.com';
   final String _phone = '123-456-7890';
   final String _password = '********';
