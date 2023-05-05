@@ -1,28 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(keamananpage());
-}
+class KeamananPage extends StatelessWidget {
+  final User user;
 
-class keamananpage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: ProfilePage(),
-    );
-  }
-}
-
-class ProfilePage extends StatefulWidget {
-  @override
-  _ProfilePageState createState() => _ProfilePageState();
-}
-
-class _ProfilePageState extends State<ProfilePage> {
-  String _username = 'Ini namanya nanti di sync sama backend';
-  String _email = 'email@example.com';
-  String _phone = '123-456-7890';
-  String _password = '********';
+  KeamananPage({required this.user});
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +27,7 @@ class _ProfilePageState extends State<ProfilePage> {
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
             Text(
-              _username,
+              user.displayName ?? '',
               style: TextStyle(fontSize: 16),
             ),
             SizedBox(height: 20),
@@ -54,16 +36,12 @@ class _ProfilePageState extends State<ProfilePage> {
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
             Text(
-              _email,
+              user.email ?? '',
               style: TextStyle(fontSize: 16),
             ),
             SizedBox(height: 20),
             Text(
-              'Phone',
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-            ),
-            Text(
-              _phone,
+              user.phoneNumber ?? '',
               style: TextStyle(fontSize: 16),
             ),
             SizedBox(height: 20),
@@ -75,16 +53,25 @@ class _ProfilePageState extends State<ProfilePage> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  _password,
+                  '********',
                   style: TextStyle(fontSize: 16),
                 ),
-                TextButton(
+                ElevatedButton(
                   onPressed: () {
-                    // Implement password change logic
+                    // Send password reset email to user
+                    FirebaseAuth.instance
+                        .sendPasswordResetEmail(email: user.email!);
+                    // Show snackbar to inform user
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(
+                            'A password reset link has been sent to your email.'),
+                      ),
+                    );
                   },
                   child: Text(
                     'Change Password',
-                    style: TextStyle(fontSize: 16, color: Colors.blue),
+                    style: TextStyle(fontSize: 16),
                   ),
                 ),
               ],
