@@ -58,7 +58,7 @@ class PurchaseHistoryPage1 extends StatelessWidget {
     Transaction(
       id: '00002',
       date: '2022-04-25',
-      total: '30.00',
+      total: '35.00',
       products: [
         Product(
             name: 'Product C',
