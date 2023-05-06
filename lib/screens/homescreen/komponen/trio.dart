@@ -1,6 +1,7 @@
 // ignore_for_file: camel_case_types, must_be_immutable
 
 import 'package:flutter/material.dart';
+import 'package:shopeasy/screens/isiapp/content/promotionlist.dart';
 
 class d extends StatelessWidget {
   d({super.key});
@@ -29,7 +30,9 @@ class d extends StatelessWidget {
             flex: 1,
             child: GestureDetector(
               onTap: () {
-                // Aksi ketika item pertama pada baris kedua ditekan
+                Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => PromotionListPage()),
+                );
               },
               child: Container(
                 height: getProportionateScreenWidth(75, context),
@@ -91,7 +94,9 @@ class d extends StatelessWidget {
             flex: 1,
             child: GestureDetector(
               onTap: () {
-                // Aksi ketika item pertama pada baris kedua ditekan
+                Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => PromotionListPage()),
+                );
               },
               child: Container(
                 height: getProportionateScreenWidth(75, context),
@@ -169,7 +174,9 @@ class d extends StatelessWidget {
             flex: 1,
             child: GestureDetector(
               onTap: () {
-                // Aksi ketika item pertama pada baris kedua ditekan
+                Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => PromotionListPage()),
+                );
               },
               child: Container(
                 height: getProportionateScreenWidth(75, context),
