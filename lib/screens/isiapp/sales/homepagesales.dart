@@ -38,8 +38,9 @@ class _HomeStoreState extends State<HomeStore> {
 
   Future<List<List<dynamic>>> listProducts(List<dynamic>? shopProducts) async {
     List<List<dynamic>> products = [];
-    productInfo.SearchService searchService = productInfo.SearchService();
-    products = await searchService.listProducts(shopProducts);
+    productInfo.ProductDataService searchService =
+        productInfo.ProductDataService();
+    products = await searchService.listProductsData(shopProducts);
     return products;
   }
 

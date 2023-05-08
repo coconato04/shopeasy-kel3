@@ -1,9 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class SearchService {
+class ProductDataService {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  Future<List<List<dynamic>>> listProducts(List<dynamic>? shopProducts) async {
+  Future<List<List<dynamic>>> listProductsData(
+      List<dynamic>? shopProducts) async {
     List<List<dynamic>> products = [];
     if (shopProducts != null) {
       for (var i = 0; i < shopProducts.length; i++) {
