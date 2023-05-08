@@ -19,4 +19,18 @@ class ProductDataService {
     }
     return products;
   }
+
+  //get data from firestore
+  Future getProductData(String productID) async {
+    try {
+      final docProduct = await FirebaseFirestore.instance
+          .collection('products')
+          .doc(productID)
+          .get();
+      return docProduct.data();
+    } catch (e) {
+      print(e.toString());
+      return null;
+    }
+  }
 }
