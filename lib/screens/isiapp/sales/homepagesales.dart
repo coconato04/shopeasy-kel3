@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:shopeasy/screens/isiapp/content/salesmode.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:shopeasy/services/auth.dart' as auth;
+import 'package:shopeasy/services/ProductInfoService.dart' as productInfo;
 
 class HomeStore extends StatefulWidget {
   @override
@@ -37,19 +38,8 @@ class _HomeStoreState extends State<HomeStore> {
 
   Future<List<List<dynamic>>> listProducts(List<dynamic>? shopProducts) async {
     List<List<dynamic>> products = [];
-    if (shopProducts != null) {
-      for (var i = 0; i < shopProducts.length; i++) {
-        String a = shopProducts[i];
-        final productData = await FirebaseFirestore.instance
-            .collection('products')
-            .doc(a as String?)
-            .get();
-        if (productData.exists) {
-          products.add(productData.data()!.values.toList());
-          print(products);
-        }
-      }
-    }
+    productInfo.SearchService searchService = productInfo.SearchService();
+    products = await searchService.listProducts(shopProducts);
     return products;
   }
 

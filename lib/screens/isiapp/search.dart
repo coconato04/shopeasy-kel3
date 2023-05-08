@@ -63,8 +63,7 @@ class _SearchState extends State<Search> {
                 return ListTile(
                   title: Text(_searchResults[index][0].toString()),
                   onTap: () {
-                    // Implementasi aksi saat item di klik
-                    // Misalnya, menampilkan detail item atau melakukan navigasi ke halaman detail
+                    // move to product page
                   },
                 );
               },
