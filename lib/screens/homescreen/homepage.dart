@@ -10,10 +10,6 @@ import 'package:shopeasy/screens/homescreen/komponen/recomended.dart';
 import 'package:shopeasy/screens/homescreen/komponen/tamp.dart';
 import 'package:shopeasy/screens/component/rootappbar.dart';
 
-//TODO: appbar di bawahnya kyknya hilang
-//TODO: signoutnya di notif sbagai plaeceholder. pindahin codenya kalo udh ada tombol signout
-//TODO: tambah initState untuk mengecek apabila user signed in atau tidak
-
 class homepage extends StatefulWidget {
   const homepage({super.key});
 
@@ -43,9 +39,13 @@ class homepageState extends State<homepage> {
       print('Homepage login check: User is already logged in');
     } else {
       print('Homepage login check: User is not logged in');
-      //TODO: widget to show user is "not logged in"
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(builder: (context) => const logsig()),
+      );
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Redirecting to login page...'),
+        ),
       );
     }
   }
