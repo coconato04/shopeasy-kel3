@@ -184,7 +184,7 @@ class barisan extends StatelessWidget {
                         ),
                         SizedBox(height: 10),
                         Text(
-                          'parfum',
+                          'burberry',
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
@@ -192,7 +192,7 @@ class barisan extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          'Harga 1',
+                          '20.99',
                           style: TextStyle(
                             fontSize: 14,
                             color: Colors.black,
@@ -247,7 +247,7 @@ class barisan extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          'Harga 2',
+                          '49.99',
                           style: TextStyle(
                             fontSize: 14,
                             color: Colors.black,
@@ -360,7 +360,7 @@ class barisan extends StatelessWidget {
                           height: 10,
                         ),
                         Text(
-                          'Nama 4',
+                          'colgate',
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
@@ -368,7 +368,7 @@ class barisan extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          'Harga 4',
+                          '2.99',
                           style: TextStyle(
                             fontSize: 14,
                             color: Colors.black,
