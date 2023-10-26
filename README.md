@@ -1,6 +1,6 @@
 # shopeasy
 
-A "Marketplace" themed Flutter project by Kelompok 3. Insert flavor text here.
+A "Marketplace" themed Flutter project by Kelompok 3. [Demo](https://www.youtube.com/watch?v=mXAWTsxXbN8).
 
 ## Currently only working on Android
 
